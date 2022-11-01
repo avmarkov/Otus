@@ -37,8 +37,12 @@
 > 
 > <image src="images/connect_to_vm.png" alt="connect_to_vm">
 
+### Поставить PostgreSQL
 
-поставить PostgreSQL
+> Т.к. версия Ubuntu 22.04, устанавливаю PostgreSQL так (знаю, что установится 14-я версия):
+> ```sh
+> aleksandr@ubuntu2204-vm1:~$ sudo apt-get -y install postgresql
+> ```
 
 зайти вторым ssh (вторая сессия)
 

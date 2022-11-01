@@ -44,6 +44,10 @@
 > aleksandr@ubuntu2204-vm1:~$ sudo apt-get -y install postgresql
 > ```
 
+> Результат:
+> 
+> <image src="images/postgres_install.png" alt="postgres_install">
+
 зайти вторым ssh (вторая сессия)
 
 запустить везде psql из под пользователя postgres
