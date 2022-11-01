@@ -13,37 +13,21 @@ Cоздать новый проект в Google Cloud Platform, например
 > ```sh
 > PS C:\Users\Aleksandr_Markov> ssh-keygen -t rsa -b 2048
 > ```
-> Результат:
 
-> <image src="images/gen_rsa.png" alt="Генерация RSA">
-
+> Задаю путь и имя ключа:
 > ```sh
-Generating public/private rsa key pair.
-Enter file in which to save the key (C:\Users\Aleksandr_Markov/.ssh/id_rsa): c:\Users\Aleksandr_Markov\.ssh\yc_key
+> c:\Users\Aleksandr_Markov\.ssh\yc_key
+> ```
+
+> Вывожу на экран публичный ключ:
+> ```sh
+> cat C:\Users\Aleksandr_Markov\.ssh\yc_key.pub
+> ```
+
+> Результат:
+> <image src="images/gen_rsa.png" alt="RSA">
 
 
-Enter passphrase (empty for no passphrase):
-Enter same passphrase again:
-Your identification has been saved in c:\Users\Aleksandr_Markov\.ssh\yc_key.
-Your public key has been saved in c:\Users\Aleksandr_Markov\.ssh\yc_key.pub.
-The key fingerprint is:
-SHA256:NrdTeg97+EJJLMToZXztgFENhjRt5o7YcjrpdrtinAo aleksandr_markov@LYMAR
-The key's randomart image is:
-+---[RSA 2048]----+
-|         =+*++   |
-|        . Oo* o  |
-|       . + * o   |
-|        . . + .  |
-|        So.=..   |
-|       .oo+++    |
-|    E  . *+.o.   |
-|     .  X .oo+.  |
-|      .=.+oo.+o  |
-+----[SHA256]-----+
-PS C:\Users\Aleksandr_Markov> cat C:\Users\Aleksandr_Markov\.ssh\yc_key.pub
-ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDL9V6/DesZNSRLRkv7ymWGi1oLNoZRwgidOwPECuvu1oAMgyOs/SfO1Oie+o/bqEpi7Nc+3CuqnKajpDYSRQmxrNuXGSHUdysTgzH0cBdqf9VP2BSBm8i6/pGmpErmmE+U9hRfPC+hTp0AIXJIP6cHkbM28kEVpu3JHkyFefuczReLCrXvNrhFMclToCXISylmG2SX/sUae7MKeg3JqiqmRYlmfwC7WvKJRxsovVYzu80K3X6QJU/RrTc+jrq6XR7CXFWTyFo4FCFy7aZbqUeMXxiV8DIQd467NqVIUh9RolhFj33WQR+gqb/V33EXAniRtzacdSFdEW91YkMGQGRp aleksandr_markov@LYMAR
-PS C:\Users\Aleksandr_Markov>
-```
 
 
 
