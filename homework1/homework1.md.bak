@@ -34,7 +34,7 @@
 > PS C:\Users\Aleksandr_Markov> ssh -i C:\Users\Aleksandr_Markov\.ssh\yc_key aleksandr@51.250.27.132
 > ```
 > Результат:
-
+> 
 > <image src="images/connect_to_vm.png" alt="connect_to_vm">
 
 
