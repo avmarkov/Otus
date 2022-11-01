@@ -27,9 +27,15 @@
 > Результат:
 > <image src="images/gen_rsa.png" alt="RSA">
 
+> Затем скопировал публичный ключ и добавил его в Яндекс
 
+### Зайти удаленным ssh (первая сессия), не забывайте про ssh-add
+> ```sh
+> PS C:\Users\Aleksandr_Markov> ssh -i C:\Users\Aleksandr_Markov\.ssh\yc_key aleksandr@51.250.27.132
+> ```
+> Результат:
+> <image src="images/connect_to_vm.png" alt="RSA">
 
-зайти удаленным ssh (первая сессия), не забывайте про ssh-add
 
 поставить PostgreSQL
 
