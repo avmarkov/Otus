@@ -3,17 +3,18 @@
 Cоздать новый проект в Google Cloud Platform, например postgres2022-, где yyyymm год, месяц вашего рождения (имя проекта должно быть уникально на уровне GCP), Яндекс облако или на любых ВМ, докере.
 Далее создать инстанс виртуальной машины с дефолтными параметрами
 
-> Я создал виртуальную машину с Ubuntu 22.04.1 LTS в Яндексе. Скрин виртуальной машине Яндекса на картинке ниже:
+> Я создал виртуальную машину с Ubuntu 22.04.1 LTS в Яндексе. Назвал ее ubuntu2204-vm1. Скрин виртуальной машине Яндекса на картинке ниже:
 
-<image src="images/vm_yandex.png" alt="Виртуальная машина Яндекс">
+> <image src="images/vm_yandex.png" alt="Виртуальная машина Яндекс">
 
 добавить свой ssh ключ в metadata ВМ
 
-Генерирую ключ у себя на машине с Windows:
-```sh
-PS C:\Users\Aleksandr_Markov> ssh-keygen -t rsa -b 2048
-```
-```sh
+> Генерирую ключ у себя на машине с Windows:
+> ```sh
+> PS C:\Users\Aleksandr_Markov> ssh-keygen -t rsa -b 2048
+> ```
+> ```sh
+
 Generating public/private rsa key pair.
 Enter file in which to save the key (C:\Users\Aleksandr_Markov/.ssh/id_rsa): c:\Users\Aleksandr_Markov\.ssh\yc_key
 Enter passphrase (empty for no passphrase):

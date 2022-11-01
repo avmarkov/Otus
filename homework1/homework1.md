@@ -13,10 +13,14 @@ Cоздать новый проект в Google Cloud Platform, например
 > ```sh
 > PS C:\Users\Aleksandr_Markov> ssh-keygen -t rsa -b 2048
 > ```
-> ```sh
+> Результат:
+> <image src="images/gen_rsa.png" alt="Генерация RSA">
 
+> ```sh
 Generating public/private rsa key pair.
 Enter file in which to save the key (C:\Users\Aleksandr_Markov/.ssh/id_rsa): c:\Users\Aleksandr_Markov\.ssh\yc_key
+
+
 Enter passphrase (empty for no passphrase):
 Enter same passphrase again:
 Your identification has been saved in c:\Users\Aleksandr_Markov\.ssh\yc_key.
