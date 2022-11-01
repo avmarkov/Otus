@@ -2,7 +2,7 @@
 
 Cоздать новый проект в Google Cloud Platform, например postgres2022-, где yyyymm год, месяц вашего рождения (имя проекта должно быть уникально на уровне GCP), Яндекс облако или на любых ВМ, докере
 
-<image src="/images/vm_yandex.png" alt="Виртуальная машина в Яндекс">
+<image src="images/vm_yandex.png" alt="Виртуальная машина в Яндекс">
 
 
 ```sh
