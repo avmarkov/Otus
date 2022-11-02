@@ -48,9 +48,19 @@
 > 
 > <image src="images/postgres_install.png" alt="postgres_install">
 
-зайти вторым ssh (вторая сессия)
+### зайти вторым ssh (вторая сессия)
+### запустить везде psql из под пользователя postgres
 
-запустить везде psql из под пользователя postgres
+> Зашел вторым ssh
+> Запустил psql из под пользователя postgres в этих двух клиентах:
+> ```sh
+> aleksandr@ubuntu2204-vm1:~$ sudo -u postgres psql
+> ```
+
+> Результат:
+> 
+> <image src="images/psql.png" alt="psql">
+
 
 выключить auto commit
 
