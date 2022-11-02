@@ -33,6 +33,7 @@
 > ```sh
 > PS C:\Users\Aleksandr_Markov> ssh -i C:\Users\Aleksandr_Markov\.ssh\yc_key aleksandr@51.250.27.132
 > ```
+> 
 > Результат:
 > 
 > <image src="images/connect_to_vm.png" alt="connect_to_vm">
@@ -43,7 +44,7 @@
 > ```sh
 > aleksandr@ubuntu2204-vm1:~$ sudo apt-get -y install postgresql
 > ```
-> 
+ 
 > Результат:
 > 
 > <image src="images/postgres_install.png" alt="postgres_install">
@@ -55,15 +56,22 @@
 > ```sh
 > aleksandr@ubuntu2204-vm1:~$ sudo -u postgres psql
 > ```
-> 
+ 
 > Результат:
 > 
 > <image src="images/psql.png" alt="psql">
 
+### Выключить auto commit
+> ```sh
+> postgres=# \set AUTOCOMMIT OFF
+> ```
 
-выключить auto commit
 
-сделать в первой сессии новую таблицу и наполнить ее данными create table persons(id serial, first_name text, second_name text); insert into persons(first_name, second_name) values('ivan', 'ivanov'); insert into persons(first_name, second_name) values('petr', 'petrov'); commit;
+### Cделать в первой сессии новую таблицу и наполнить ее данными.
+#### create table persons(id serial, first_name text, second_name text);
+#### insert into persons(first_name, second_name) values('ivan', 'ivanov');
+#### insert into persons(first_name, second_name) values('petr', 'petrov'); 
+#### commit; 
 
 посмотреть текущий уровень изоляции: show transaction isolation level
 
