@@ -115,14 +115,24 @@
 > Завершил
 
 ### Начать новые но уже repeatable read транзации - set transaction isolation level repeatable read;
+> ```sh
+> postgres=# set transaction isolation level repeatable read;
+> ```
 
-в первой сессии добавить новую запись insert into persons(first_name, second_name) values('sveta', 'svetova');
-сделать select * from persons во второй сессии
-видите ли вы новую запись и если да то почему?
+### В первой сессии добавить новую запись insert into persons(first_name, second_name) values('sveta', 'svetova');
+> Добавил новую запись:
+>
+> ```sh
+> postgres=# set transaction isolation level repeatable read;
+> ```
+
+# Cделать select * from persons во второй сессии. Видите ли вы новую запись и если да то почему?
+
 завершить первую транзакцию - commit;
 сделать select * from persons во второй сессии
 видите ли вы новую запись и если да то почему?
 завершить вторую транзакцию
 сделать select * from persons во второй сессии
-видите ли вы новую запись и если да то почему? ДЗ сдаем в виде миниотчета в markdown в гите
+видите ли вы новую запись и если да то почему? 
+
 

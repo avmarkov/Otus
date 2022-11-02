@@ -94,7 +94,7 @@
 > postgres=# BEGIN;
 > ```
 
-# В первой сессии добавить новую запись insert into persons(first_name, second_name) values('sergey', 'sergeev');
+### В первой сессии добавить новую запись insert into persons(first_name, second_name) values('sergey', 'sergeev');
 > ```sh
 > postgres=*# insert into persons(first_name, second_name) values('sergey', 'sergeev');
 > ```
@@ -105,9 +105,7 @@
 > В этом случае мы не увидим во второй сесии (транзакции) изменения сделанные в первой сессии (транзакции) до тех пор,
 > пока в первой сессии не будет сделан COMMIT.
 
-### Завершить первую транзакцию - commit;
-
-### Cделать select * from persons во второй сессии. Видите ли вы новую запись и если да то почему?
+### Завершить первую транзакцию - commit; Cделать select * from persons во второй сессии. Видите ли вы новую запись и если да то почему?
 
 > Новую запись вижу. Т.к. при уровне изоляции read committed, после COMMIT в первой транзакции, изменения,
 > сделанные первой сессией (транзакцией), становятся видны и во втрой транзакции.
@@ -116,7 +114,8 @@
 
 > Завершил
 
-начать новые но уже repeatable read транзации - set transaction isolation level repeatable read;
+### Начать новые но уже repeatable read транзации - set transaction isolation level repeatable read;
+
 в первой сессии добавить новую запись insert into persons(first_name, second_name) values('sveta', 'svetova');
 сделать select * from persons во второй сессии
 видите ли вы новую запись и если да то почему?
