@@ -73,9 +73,21 @@
 * #### insert into persons(first_name, second_name) values('petr', 'petrov'); 
 * #### commit; 
 
-посмотреть текущий уровень изоляции: show transaction isolation level
+> Добавил записи. Сделал COMMIT;
+Результат:
+> 
+> <image src="images/select.png" alt="select">
 
-начать новую транзакцию в обоих сессиях с дефолтным (не меняя) уровнем изоляции
+### Посмотреть текущий уровень изоляции: show transaction isolation level
+
+> ```sh
+> postgres=# show transaction isolation level;
+> ```
+Результат:
+>
+> <image src="images/show_tr_level.png" alt="show_tr_level">
+
+### начать новую транзакцию в обоих сессиях с дефолтным (не меняя) уровнем изоляции
 
 в первой сессии добавить новую запись insert into persons(first_name, second_name) values('sergey', 'sergeev');
 
