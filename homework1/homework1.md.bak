@@ -74,7 +74,8 @@
 * #### commit; 
 
 > Добавил записи. Сделал COMMIT;
-Результат:
+> 
+> Результат:
 > 
 > <image src="images/select.png" alt="select">
 
