@@ -23,7 +23,7 @@
 
 > Подключаем созданную сеть к контейнеру сервера Postgres:
 > ```sh
-sudo docker run --name pg-server --network pg-net -e POSTGRES_PASSWORD=postgres -d -p 5432:5432 -v /var/lib/postgres:/var/lib/postgresql/data postgres:14
+> sudo docker run --name pg-server --network pg-net -e POSTGRES_PASSWORD=postgres -d -p 5432:5432 -v /var/lib/postgres:/var/lib/postgresql/data postgres:14
 > ```sh
 
 > Результат:
@@ -33,10 +33,12 @@ sudo docker run --name pg-server --network pg-net -e POSTGRES_PASSWORD=postgres 
 ### Развернуть контейнер с клиентом postgres
 > Развернул
 > ```sh
-aleksandr@ubuntu2204-vm1:~$ sudo docker run -it --rm --network pg-net --name pg-client postgres:14 psql -h pg-server -U postgres
+> aleksandr@ubuntu2204-vm1:~$ sudo docker run -it --rm --network pg-net --name pg-client postgres:14 psql -h pg-server -U postgres
 > ```sh
 
 ### Подключится из контейнера с клиентом к контейнеру с сервером и сделать таблицу с парой строк
+> Подключился. Теперь у меня два контейнера. Один- с сервером. Другой - с клиентом.
+> <image src="images/client.png" alt="client">
 
 ### Подключится к контейнеру с сервером с ноутбука/компьютера извне инстансов GCP/ЯО/места установки докера
 
