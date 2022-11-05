@@ -1,9 +1,9 @@
 # Домашняя работа № 2
 
 ### создать ВМ с Ubuntu 20.04/22.04 или развернуть докер любым удобным способом
-
 > Я создал виртуальную машину с Ubuntu 22.04.1 LTS в Яндексе. Назвал ее ubuntu2204-vm1. Скрин виртуальной машине Яндекса на картинке ниже:
 > <image src="images/vm_yandex.png" alt="vm_yandex">
+
 ### Поставить на нем Docker Engine
 > Поставил на нем Docker Engine
 > ```sh
@@ -15,8 +15,7 @@
 >
 > <image src="images/dir_postgres.png" alt="/var/lib/postgres">
 
-### развернуть контейнер с PostgreSQL 14 смонтировав в него /var/lib/postgres
-
+### Развернуть контейнер с PostgreSQL 14 смонтировав в него /var/lib/postgres
 > Создаем docker-сеть: 
 > ```sh
 > sudo docker network create pg-net
