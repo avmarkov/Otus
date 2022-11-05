@@ -41,8 +41,15 @@
 > <image src="images/client.png" alt="client">
 
 ### Подключится к контейнеру с сервером с ноутбука/компьютера извне инстансов GCP/ЯО/места установки докера
+> Подключился. У меня уже был установлен сервер Postgres на Windows машине. Поэтому я указал путь к psql -  C:\Program Files\PostgreSQL\14\bin>psql
+> ```sh
+> C:\Program Files\PostgreSQL\14\bin>psql -p 5432 -U postgres -h 158.160.19.119 -d postgres -W
+> ```sh
 
 ### Удалить контейнер с сервером
+> Результат:
+>
+> <image src="images/psql.png" alt="psql">
 
 ### Создать его заново
 
