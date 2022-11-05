@@ -46,10 +46,12 @@
 > C:\Program Files\PostgreSQL\14\bin>psql -p 5432 -U postgres -h 158.160.19.119 -d postgres -W
 > ```sh
 
-### Удалить контейнер с сервером
 > Результат:
 >
 > <image src="images/psql.png" alt="psql">
+
+### Удалить контейнер с сервером
+
 
 ### Создать его заново
 
