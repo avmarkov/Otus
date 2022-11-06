@@ -24,7 +24,7 @@
 > Подключаем созданную сеть к контейнеру сервера Postgres:
 > ```sh
 > sudo docker run --name pg-server --network pg-net -e POSTGRES_PASSWORD=postgres -d -p 5432:5432 -v /var/lib/postgres:/var/lib/postgresql/data postgres:14
-> ```sh
+> ```
 
 > Результат:
 >
@@ -40,6 +40,14 @@
 > Подключился. Теперь у меня два контейнера. Один- с сервером. Другой - с клиентом.
 > <image src="images/client.png" alt="client">
 
+> Сделал таблицу test(id integer, name character varying);
+> ```sh
+> postgres=# create table test(id integer, name character varying);
+> ```
+> Результат:
+>
+><image src="images/table_test.png" alt="table_test">
+
 ### Подключится к контейнеру с сервером с ноутбука/компьютера извне инстансов GCP/ЯО/места установки докера
 > Подключился. У меня уже был установлен сервер Postgres на Windows машине. Поэтому я указал путь к psql -  C:\Program Files\PostgreSQL\14\bin>psql
 > ```sh
@@ -51,7 +59,11 @@
 > <image src="images/psql.png" alt="psql">
 
 ### Удалить контейнер с сервером
-
+> Удалил
+> 
+> ```sh
+> sudo docker rm 42c995d3a1b8
+> ```
 
 ### Создать его заново
 
