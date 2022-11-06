@@ -62,8 +62,14 @@
 > Удалил
 > 
 > ```sh
-> sudo docker rm 42c995d3a1b8
+> sudo docker stop 8bf473caf2f8
+> sudo docker rm 8bf473caf2f8
 > ```
+
+> Результат:
+>
+> <image src="images/docker_rm.png" alt="docker_rm">
+
 
 ### Создать его заново
 
