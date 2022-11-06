@@ -34,7 +34,7 @@
 > Развернул
 > ```sh
 > aleksandr@ubuntu2204-vm1:~$ sudo docker run -it --rm --network pg-net --name pg-client postgres:14 psql -h pg-server -U postgres
-> ```sh
+> ```
 
 ### Подключится из контейнера с клиентом к контейнеру с сервером и сделать таблицу с парой строк
 > Подключился. Теперь у меня два контейнера. Один- с сервером. Другой - с клиентом.
@@ -44,7 +44,7 @@
 > Подключился. У меня уже был установлен сервер Postgres на Windows машине. Поэтому я указал путь к psql -  C:\Program Files\PostgreSQL\14\bin>psql
 > ```sh
 > C:\Program Files\PostgreSQL\14\bin>psql -p 5432 -U postgres -h 158.160.19.119 -d postgres -W
-> ```sh
+> ```
 
 > Результат:
 >
