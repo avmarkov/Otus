@@ -79,19 +79,19 @@
 
 > При этом файл docker-compose.yml у меня такой:
 > ```sh
-version: '3.1'
-services:
-  pg_db:
-    image: postgres:14
-    restart: always
-    environment:
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_DB=stage
-    volumes:
-      - /var/lib/postgres:/var/lib/postgresql/data
-    ports:
-      - ${POSTGRES_PORT:-5432}:5432
+> version: '3.1'
+> services:
+>   pg_db:
+>     image: postgres:14
+>     restart: always
+>     environment:
+>       - POSTGRES_PASSWORD=postgres
+>       - POSTGRES_USER=postgres
+>       - POSTGRES_DB=stage
+>     volumes:
+>       - /var/lib/postgres:/var/lib/postgresql/data
+>     ports:
+>       - ${POSTGRES_PORT:-5432}:5432
 > ```
 
 > Запускаю
@@ -100,8 +100,6 @@ services:
 > ```
 
 ### подключится снова из контейнера с клиентом к контейнеру с сервером. Проверить, что данные остались на месте
-
-
 > Сначала нужно создать дирректорию:
 > ```sh
 > sudo su

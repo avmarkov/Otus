@@ -77,17 +77,43 @@
 > sudo apt install docker-compose -y
 > ```
 
+> При этом файл docker-compose.yml у меня такой:
+> ```sh
+version: '3.1'
+services:
+  pg_db:
+    image: postgres:14
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=stage
+    volumes:
+      - /var/lib/postgres:/var/lib/postgresql/data
+    ports:
+      - ${POSTGRES_PORT:-5432}:5432
+> ```
+
 > Запускаю
 > ```sh
 > sudo docker-compose up -d
 > ```
 
 ### подключится снова из контейнера с клиентом к контейнеру с сервером. Проверить, что данные остались на месте
+
+
+> Сначала нужно создать дирректорию:
+> ```sh
+> sudo su
+> cd /var/lib/docker/volumes/aleksandr_pg_project/_data
+> ```
+> Потом подключаюсь:
 > ```sh
 > sudo -u postgres psql -h localhost
 > ```
-
-Результат:
+ 
+>Результат:
+> 
 > <image src="images/res.png" alt="res">
 
-Своей таблицы я не вижу. Видимо надо примонтировать папку с БД к докеру. Подскажите пожалуйста, как???
+
