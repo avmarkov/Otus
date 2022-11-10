@@ -1,17 +1,28 @@
-# Домашняя работа № 3
+# Домашняя работа № 3. Установка и настройка PostgreSQL.
 
 ### создать ВМ с Ubuntu 20.04/22.04 или развернуть докер любым удобным способом
 > Я создал виртуальную машину с Ubuntu 22.04.1 LTS в Яндексе. Назвал ее ubuntu2204-vm1. Скрин виртуальной машине Яндекса на картинке ниже:
 > <image src="images/vm_yandex.png" alt="vm_yandex">
 
-### Поставьте на нее PostgreSQL 14 через sudo apt
-
-### Проверьте что кластер запущен через sudo -u postgres pg_lsclusters
+### Поставьте на нее PostgreSQL 14 через sudo apt. Проверьте что кластер запущен через sudo -u postgres pg_lsclusters
+> Т.к. версия Ubuntu 22.04, устанавливаю PostgreSQL так (знаю, что установится 14-я версия):
+> ```sh
+> aleksandr@ubuntu2204-vm2:~$ sudo apt-get -y install postgresql
+> ```
+> Результат:
+> 
+> <image src="images/postgres_cluster.png" alt="postgres_cluster">
 
 ### Зайдите из под пользователя postgres в psql и сделайте произвольную таблицу с произвольным содержимым
-postgres=# create table test(c1 text);
-postgres=# insert into test values('1');
-\q
+> ```sh
+> postgres=# create table test(c1 text);
+> postgres=# insert into test values('1');
+> \q
+> ```
+> Результат:
+> 
+> <image src="images/res_table_create.png" alt="res_table_create">
+
 
 ### Остановите postgres например через sudo -u postgres pg_ctlcluster 14 main stop
 
