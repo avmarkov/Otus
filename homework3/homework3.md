@@ -23,8 +23,13 @@
 > 
 > <image src="images/res_table_create.png" alt="res_table_create">
 
-
 ### Остановите postgres например через sudo -u postgres pg_ctlcluster 14 main stop
+> ```sh
+> aleksandr@ubuntu2204-vm2:~$ sudo -u postgres pg_ctlcluster 14 main stop
+> ```
+> Результат:
+> 
+> <image src="images/stop_cluster.png" alt="stop_cluster">
 
 ### создайте новый standard persistent диск GKE через Compute Engine -> Disks в том же регионе и зоне что GCE инстанс размером например 10GB
 

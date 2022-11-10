@@ -19,6 +19,10 @@
 > postgres=# insert into test values('1');
 > \q
 > ```
+> Результат:
+> 
+> <image src="images/res_table_create.png" alt="res_table_create">
+
 
 ### Остановите postgres например через sudo -u postgres pg_ctlcluster 14 main stop
 
