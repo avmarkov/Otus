@@ -46,8 +46,20 @@
 >
 > <image src="images/disk2_vm.png" alt="disk2_vm">
 
-### проинициализируйте диск согласно инструкции и подмонтировать файловую систему, только не забывайте менять имя диска на актуальное, в вашем случае это скорее всего будет /dev/sdb - https://www.digitalocean.com/community/tutorials/how-to-partition-and-format-storage-devices-in-linux
+### Проинициализируйте диск согласно инструкции и подмонтировать файловую систему, только не забывайте менять имя диска на актуальное, в вашем случае это скорее всего будет /dev/sdb - https://www.digitalocean.com/community/tutorials/how-to-partition-and-format-storage-devices-in-linux
+> Устанавливаем утилиту parted
+> 
+> ```sh
+> aleksandr@ubuntu2204-vm2:~$ sudo apt install parted
+> ```
 
+> Найдем диске с отсутствующими схемами разбиения
+> ```sh
+> aleksandr@ubuntu2204-vm2:~$ sudo parted -l | grep Error
+> ```
+> Результат:
+> 
+> <image src="images/disk_part_error.png" alt="disk_part_error">
 ### перезагрузите инстанс и убедитесь, что диск остается примонтированным (если не так смотрим в сторону fstab)
 
 ### сделайте пользователя postgres владельцем /mnt/data - chown -R postgres:postgres /mnt/data/
