@@ -128,11 +128,15 @@
 > ```sh
 > aleksandr@ubuntu2204-vm2:~$ sudo mv /var/lib/postgresql/14 /mnt/data
 > ```
+>
+> <image src="images/move_dir.png" alt="move_dir">
 
-
-### попытайтесь запустить кластер - sudo -u postgres pg_ctlcluster 14 main start
-
-### напишите получилось или нет и почему
+### попытайтесь запустить кластер - sudo -u postgres pg_ctlcluster 14 main start. Напишите получилось или нет и почему
+> ```sh
+> aleksandr@ubuntu2204-vm2:~$ sudo -u postgres pg_ctlcluster 14 main start
+> ```
+>
+> Не получилось
 
 ### задание: найти конфигурационный параметр в файлах раположенных в /etc/postgresql/14/main который надо поменять и поменяйте его
 
