@@ -53,13 +53,42 @@
 > aleksandr@ubuntu2204-vm2:~$ sudo apt install parted
 > ```
 
-> Найдем диске с отсутствующими схемами разбиения
+> Найдем диски с отсутствующими схемами разбиения
 > ```sh
 > aleksandr@ubuntu2204-vm2:~$ sudo parted -l | grep Error
 > ```
 > Результат:
 > 
 > <image src="images/disk_part_error.png" alt="disk_part_error">
+
+> Указываю используемый стандарт разбиения:
+> ```sh
+> aleksandr@ubuntu2204-vm2:~$ sudo parted /dev/vdb mklabel gpt
+> ```
+
+> Создаю раздел:
+> ```sh
+> aleksandr@ubuntu2204-vm2:~$ sudo parted -a opt /dev/vdb mkpart primary ext4 0% 100%
+> ```
+>
+> Результат:
+> 
+> <image src="images/vdb1.png" alt="vdb1">
+
+> Создаю файловую систему в новом разделе
+> ```sh
+> aleksandr@ubuntu2204-vm2:~$ sudo mkfs.ext4 -L datapartition /dev/vdb1
+> ```
+>
+> Задаю Label:
+> ```sh
+> aleksandr@ubuntu2204-vm2:~$ sudo e2label /dev/vdb1 newdisk
+> ```
+>
+> Результат:
+> 
+> <image src="images/new_file_system.png" alt="new_file_system">
+
 ### перезагрузите инстанс и убедитесь, что диск остается примонтированным (если не так смотрим в сторону fstab)
 
 ### сделайте пользователя postgres владельцем /mnt/data - chown -R postgres:postgres /mnt/data/
