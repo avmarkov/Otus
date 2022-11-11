@@ -123,7 +123,13 @@
 > aleksandr@ubuntu2204-vm2:~$ sudo chown -R postgres:postgres /mnt/data/
 > ```
 
-### перенесите содержимое /var/lib/postgres/14 в /mnt/data - mv /var/lib/postgresql/14 /mnt/data
+### Перенесите содержимое /var/lib/postgres/14 в /mnt/data - mv /var/lib/postgresql/14 /mnt/data
+> Перенес:
+> ```sh
+> aleksandr@ubuntu2204-vm2:~$ sudo mv /var/lib/postgresql/14 /mnt/data
+> ```
+>
+> <image src="images/move_dir.png" alt="move_dir">
 
 ### попытайтесь запустить кластер - sudo -u postgres pg_ctlcluster 14 main start
 
