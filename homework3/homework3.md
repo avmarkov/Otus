@@ -112,12 +112,16 @@
 >
 > <image src="images/mounted_ok.png" alt="mounted_ok">
 
+### Перезагрузите инстанс и убедитесь, что диск остается примонтированным (если не так смотрим в сторону fstab)
+> Перезагрузил. Диск остался примонтированным
+>
+> <image src="images/mounted_ok_after_restor.png" alt="mounted_ok_after_restor">
 
-
-
-### перезагрузите инстанс и убедитесь, что диск остается примонтированным (если не так смотрим в сторону fstab)
-
-### сделайте пользователя postgres владельцем /mnt/data - chown -R postgres:postgres /mnt/data/
+### Сделайте пользователя postgres владельцем /mnt/data - chown -R postgres:postgres /mnt/data/
+> Сделал:
+> ```sh
+> aleksandr@ubuntu2204-vm2:~$ sudo chown -R postgres:postgres /mnt/data/
+> ```
 
 ### перенесите содержимое /var/lib/postgres/14 в /mnt/data - mv /var/lib/postgresql/14 /mnt/data
 
