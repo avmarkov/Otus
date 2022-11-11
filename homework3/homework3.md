@@ -39,6 +39,9 @@
 > <image src="images/disk2.png" alt="disk2">
 
 > В виртуалке этот новый диск, обозначен как "vdb":
+> ```sh
+aleksandr@ubuntu2204-vm2:~$ sudo lsblk -o NAME,FSTYPE,SIZE,MOUNTPOINT,LABEL
+> ```
 >
 > <image src="images/disk2_vm.png" alt="disk2_vm">
 
