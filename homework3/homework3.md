@@ -89,6 +89,32 @@
 > 
 > <image src="images/new_file_system.png" alt="new_file_system">
 
+> Создаем дирректорию, куда будет монтироваться диск:
+> ```sh
+> aleksandr@ubuntu2204-vm2:~$ sudo mkdir -p /mnt/data
+> ```
+
+> Монтируем файловую систему
+> ```sh
+> aleksandr@ubuntu2204-vm2:~$ sudo mount -o defaults /dev/vdb1 /mnt/data
+> ```
+
+> Редактируем файл /etc/fstab, чтобы файла система монтировалась автоматически при каждой загрузке сервера
+> ```sh
+> aleksandr@ubuntu2204-vm2:~$ sudo nano /etc/fstab
+> ```
+>
+> Добавляем в конец файла новый диск:
+>
+> <image src="images/add_to_fstab.png" alt="add_to_fstab">
+>
+> Результат:
+>
+> <image src="images/mounted_ok.png" alt="mounted_ok">
+
+
+
+
 ### перезагрузите инстанс и убедитесь, что диск остается примонтированным (если не так смотрим в сторону fstab)
 
 ### сделайте пользователя postgres владельцем /mnt/data - chown -R postgres:postgres /mnt/data/
