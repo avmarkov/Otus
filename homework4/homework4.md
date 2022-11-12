@@ -161,10 +161,22 @@
 > Т.е. после удаления таблицы t1, право на SELECT у пользователя testread пропало. Это право было для существующих на момент назначения прав таблиц.
 
 ### 30. как сделать так чтобы такое больше не повторялось? если нет идей - смотрите шпаргалку
+>```sh
+> aleksandr@ubuntu2204-vm3:~$ sudo -u postgres psql
+> postgres=# \c testdb
+> testdb=# ALTER default privileges in SCHEMA testnm grant SELECT on TABLEs to readonly;
+>```
 
 ### 31. сделайте select * from testnm.t1;
+>```sh
+> aleksandr@ubuntu2204-vm3:~$ psql -h localhost -U testread -d testdb -W
+> testdb=> select * from testnm.t1;
+>```
 
-### 32 получилось?
+### 32 Получилось?
+> Не получилось
+>
+> <image src="images/sel3.png" alt="sel3">
 
 ### 33. есть идеи почему? если нет - смотрите шпаргалку
 
