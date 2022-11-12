@@ -161,11 +161,14 @@
 > Т.е. после удаления таблицы t1, право на SELECT у пользователя testread пропало. Это право было для существующих на момент назначения прав таблиц.
 
 ### 30. как сделать так чтобы такое больше не повторялось? если нет идей - смотрите шпаргалку
+> Посмотрел шпаргалку
 >```sh
 > aleksandr@ubuntu2204-vm3:~$ sudo -u postgres psql
 > postgres=# \c testdb
 > testdb=# ALTER default privileges in SCHEMA testnm grant SELECT on TABLEs to readonly;
 >```
+
+> ALTER DEFAULT PRIVILEGES позволяет задавать права, применяемые к объектам, которые будут создаваться в будущем. Соответсвенно, после этой команды такое больше не повторится.
 
 ### 31. сделайте select * from testnm.t1;
 >```sh
@@ -178,13 +181,28 @@
 >
 > <image src="images/sel3.png" alt="sel3">
 
-### 33. есть идеи почему? если нет - смотрите шпаргалку
+### 33. Есть идеи почему? если нет - смотрите шпаргалку
+> Потому что ALTER default будет действовать для новых таблиц а grant SELECT on all TABLEs in SCHEMA testnm TO readonly отработал только для существующих на тот момент времени. Надо сделать снова или grant SELECT или пересоздать таблицу
 
-### 31. сделайте select * from testnm.t1;
+> Поэтому задаю GRANT SELECT еще раз:
+>```sh
+> aleksandr@ubuntu2204-vm3:~$ sudo -u postgres psql
+> postgres=# \c testdb
+> testdb=# GRANT SELECT ON ALL TABLES IN SCHEMA testnm TO readonly;
+>```
+
+### 31. Сделайте select * from testnm.t1;
+>```sh
+> aleksandr@ubuntu2204-vm3:~$ psql -h localhost -U testread -d testdb -W
+> testdb=# testdb=> select * from testnm.t1;
+>```
 
 ### 32. получилось?
+> Получилось.
+> 
+> <image src="images/sel_ok.png" alt="sel_ok">
 
-### 33. ура!
+### 33. Ура!
 
 ### 34. теперь попробуйте выполнить команду create table t2(c1 integer); insert into t2 values (2);
 
