@@ -57,7 +57,11 @@
 > ```sh
 > testdb=# GRANT USAGE ON SCHEMA testnm to readonly;
 > ```
+
 ### 11. дайте новой роли право на select для всех таблиц схемы testnm
+> ```sh
+> testdb=# GRANT SELECT ON ALL TABLES IN SCHEMA testnm TO readonly;
+> ```
 
 ### 12. создайте пользователя testread с паролем test123
 

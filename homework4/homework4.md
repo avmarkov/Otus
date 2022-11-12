@@ -58,14 +58,20 @@
 > testdb=# GRANT USAGE ON SCHEMA testnm to readonly;
 > ```
 
-### 11. дайте новой роли право на select для всех таблиц схемы testnm
+### 11. Дайте новой роли право на select для всех таблиц схемы testnm
 > ```sh
 > testdb=# GRANT SELECT ON ALL TABLES IN SCHEMA testnm TO readonly;
 > ```
 
-### 12. создайте пользователя testread с паролем test123
+### 12. Создайте пользователя testread с паролем test123
+> ```sh
+> testdb=# CREATE USER testread WITH password 'test123';
+> ```
 
 ### 13. дайте роль readonly пользователю testread
+> ```sh
+> testdb=# GRANT readonly TO testread;
+> ```
 
 ### 14. зайдите под пользователем testread в базу данных testdb
 
