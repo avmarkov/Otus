@@ -74,6 +74,13 @@
 > ```
 
 ### 14. зайдите под пользователем testread в базу данных testdb
+> ```sh
+> testdb=# \c testdb testread
+>```
+> Результат:
+>
+> <image src="images/user_testread.png" alt="user_testread">
+
 
 ### 15. сделайте select * from t1;
 
