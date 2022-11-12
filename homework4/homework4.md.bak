@@ -43,9 +43,18 @@
 > testdb=# INSERT INTO t1 VALUES(1);
 > ```
 
-8 создайте новую роль readonly
-9 дайте новой роли право на подключение к базе данных testdb
-10 дайте новой роли право на использование схемы testnm
+### 8. Создайте новую роль readonly
+> ```sh
+> testdb=# CREATE ROLE readonly;
+> ```
+
+9. Дайте новой роли право на подключение к базе данных testdb
+> ```sh
+> GRANT CONNECT ON DATABASE testdb TO readonly;
+> ```
+
+10. Дайте новой роли право на использование схемы testnm
+
 11 дайте новой роли право на select для всех таблиц схемы testnm
 12 создайте пользователя testread с паролем test123
 13 дайте роль readonly пользователю testread
