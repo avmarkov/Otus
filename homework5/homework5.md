@@ -1,6 +1,16 @@
 # Домашняя работа № 5. Настройка autovacuum с учетом оптимальной производительности.
 
 ### Cоздать GCE инстанс типа e2-medium и диском 10GB
+> Я создал виртуальную машину с Ubuntu 22.04.1 LTS в Яндексе. Назвал ее ubuntu2204-vm3. Скрин виртуальной машине Яндекса на картинке ниже:
+> <image src="images/vm_yandex.png" alt="vm_yandex">
+>
+> Т.к. версия Ubuntu 22.04, устанавливаю PostgreSQL так (знаю, что установится 14-я версия):
+> ```sh
+> aleksandr@ubuntu2204-vm5:~$ sudo apt-get -y install postgresql
+> ```
+> Кластер создался:
+> 
+> <image src="images/cluster_status.png" alt="cluster_status">
 
 ### Установить на него PostgreSQL 14 с дефолтными настройками
 
