@@ -49,6 +49,7 @@
 
 ### Дать отработать до конца
 > Результат:
+> 
 > <image src="images/pgbench_res.png" alt="pgbench_res">
 ### Дальше настроить autovacuum максимально эффективно
 
