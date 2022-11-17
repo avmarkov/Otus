@@ -34,11 +34,22 @@
 > <image src="images/settings.png" alt="settings">
 
 ### Выполнить pgbench -i postgres
+> ```sh
+> aleksandr@ubuntu2204-vm5:~$ sudo -u postgres pgbench -i postgres
+> ```
+>
+> Результат:
+>
+> <image src="images/pgbench.png" alt="pgbench">
 
 ### Запустить pgbench -c8 -P 60 -T 600 -U postgres postgres
+> ```sh
+> aleksandr@ubuntu2204-vm5:~$ sudo -u postgres pgbench -c8 -P 60 -T 600 -U postgres postgres
+> ```
 
 ### Дать отработать до конца
-
+> Результат:
+> <image src="images/pgbench_res.png" alt="pgbench_res">
 ### Дальше настроить autovacuum максимально эффективно
 
 ### Построить график по получившимся значениям так чтобы получить максимально ровное значение tps
