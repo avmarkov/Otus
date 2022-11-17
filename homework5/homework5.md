@@ -29,6 +29,10 @@
 > max_wal_size = 16GB
 > ```
 
+> Настроил:
+> 
+> <image src="images/settings.png" alt="settings">
+
 ### Выполнить pgbench -i postgres
 
 ### Запустить pgbench -c8 -P 60 -T 600 -U postgres postgres
