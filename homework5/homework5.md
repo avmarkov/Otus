@@ -51,6 +51,14 @@
 > Результат:
 > 
 > <image src="images/pgbench_res.png" alt="pgbench_res">
+
+> При этом, настройки autovacuum были такие:
+>
+> <image src="images/autovacuum1.png" alt="autovacuum1">
+
 ### Дальше настроить autovacuum максимально эффективно
+> Настроил autovacuum так:
+>
+> <image src="images/autovacuum2.png" alt="autovacuum2">
 
 ### Построить график по получившимся значениям так чтобы получить максимально ровное значение tps
