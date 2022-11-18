@@ -58,7 +58,27 @@
 
 ### Дальше настроить autovacuum максимально эффективно
 > Настроил autovacuum так:
+> ```sh
+> postgres=# ALTER SYSTEM SET log_autovacuum_min_duration=0;
+> postgres=# ALTER SYSTEM SET autovacuum_max_workers = 10;
+> postgres=# ALTER SYSTEM SET autovacuum_naptime = 15;
+> postgres=# ALTER SYSTEM SET autovacuum_vacuum_threshold = 25;
+> postgres=# ALTER SYSTEM SET autovacuum_vacuum_scale_factor = 0.05;
+> postgres=# ALTER SYSTEM SET autovacuum_vacuum_cost_delay = 10;
+> postgres=# ALTER SYSTEM SET autovacuum_vacuum_cost_limit = 1000;
+> ```
 >
 > <image src="images/autovacuum2.png" alt="autovacuum2">
+>
+> Результат:
+>
+> <image src="images/pgbench_res2.png" alt="pgbench_res2">
 
 ### Построить график по получившимся значениям так чтобы получить максимально ровное значение tps
+> График до настройки autovacuum:
+>
+> <image src="images/before.png" alt="before">
+
+> График после настройки autovacuum:
+>
+> <image src="images/after.png" alt="after">
