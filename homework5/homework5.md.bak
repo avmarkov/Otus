@@ -75,3 +75,10 @@
 > <image src="images/pgbench_res2.png" alt="pgbench_res2">
 
 ### Построить график по получившимся значениям так чтобы получить максимально ровное значение tps
+> График до настройки autovacuum:
+>
+> <image src="images/before.png" alt="before">
+
+> График после настройки autovacuum:
+>
+> <image src="images/after.png" alt="after">

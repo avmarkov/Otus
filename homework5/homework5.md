@@ -81,4 +81,4 @@
 
 > График после настройки autovacuum:
 >
-> <image src="images/after.png" alt="after">
+> <image src="images/after1.png" alt="after">
