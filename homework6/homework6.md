@@ -122,3 +122,55 @@
 
 
 ### 6. Создайте новый кластер с включенной контрольной суммой страниц. Создайте таблицу. Вставьте несколько значений. Выключите кластер. Измените пару байт в таблице. Включите кластер и сделайте выборку из таблицы. Что и почему произошло? как проигнорировать ошибку и продолжить работу?
+> Включаем checksum:
+> ```sh
+> aleksandr@ubuntu2204-vm5:~$ sudo su - postgres -c '/usr/lib/postgresql/15/bin/pg_checksums --enable -D "/var/lib/postgresql/15/main"'
+> ```
+
+> Создаю БД  таблицу:
+> ```sh
+> postgres=# create database test_crc;
+> postgres=# \c test_crc;
+> test_crc=# CREATE TABLE test (
+>      id     integer,                                      
+> 	 name   text
+>  );
+> ```
+
+> Вставляем записи в таблицу:
+> ```sh
+> test_crc=# INSERT INTO test values (1, 'один');
+> test_crc=# INSERT INTO test values (2, 'два');
+> ```
+
+> Посмотри где лежит таблица 
+> ```sh
+test_crc=# SELECT pg_relation_filepath('test');
+> ```
+> Здесь:
+> ```sh
+base/16393/16394
+> ```
+
+> Выключил кластер
+> ```sh
+> aleksandr@ubuntu2204-vm5:~$ sudo pg_ctlcluster 15 main stop
+> ```
+
+> Изменил пару байт таблицы
+> ```sh
+> aleksandr@ubuntu2204-vm5:~$ sudo dd if=/dev/zero of=/var/lib/postgresql/15/main/base/16393/16394 oflag=dsync conv=notrunc bs=1 count=8
+> ```
+> Результат:
+> 
+> <image src="images/crc.png" alt="crc">
+>
+> Контрольная сумма не совпала, поэтому и ошибка
+
+> Можно проигнорировать эту ошибку так:
+> ```sh
+test_crc=# SET ignore_checksum_failure = on;
+> ```
+> Результат:
+> 
+> <image src="images/crc_ignore.png" alt="crc_ignore">
