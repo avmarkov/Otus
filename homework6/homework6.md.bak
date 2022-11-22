@@ -1,10 +1,78 @@
 # Домашняя работа № 6. Работа с журналами.
 
 ### 1. Настройте выполнение контрольной точки раз в 30 секунд.
+> Посмотрим текущий checkpoint_timeout:
+> ```sh
+> postgres=# show  checkpoint_timeout;
+> ```
+>
+> Результат:
+>
+> <image src="images/checkpoint_timeout.png" alt="checkpoint_timeout">
+
+> Настроим выполнение контрольной точки раз в 30 секунд:
+> ```sh
+> postgres=# ALTER SYSTEM SET checkpoint_timeout = '30s';
+> ```
+>
+> Результат:
+>
+> <image src="images/checkpoint_timeout2.png" alt="checkpoint_timeout2">
 
 ### 2. 10 минут c помощью утилиты pgbench подавайте нагрузку.
+> Сначала запомним позицию в журнале
+> ```sh
+> postgres=# SELECT pg_current_wal_insert_lsn();
+> ```
+
+> Позиция в журнале:
+> ```sh
+>  0/50D3EFF0
+> ```
+
+> Очистим статистику
+> ```sh
+> postgres=# SELECT pg_stat_reset_shared('bgwriter');
+> ```
+
+> Подаем нагрузку:
+> ```sh
+> aleksandr@ubuntu2204-vm5:~$ sudo -u postgres pgbench -c8 -P 60 -T 600 -U postgres postgres
+> ```
 
 ### 3. Измерьте, какой объем журнальных файлов был сгенерирован за это время. Оцените, какой объем приходится в среднем на одну контрольную точку.
+> Находим текущую позицию в журнале
+> ```sh
+> postgres=# SELECT pg_current_wal_insert_lsn();
+> ```
+
+> Позиция в журнале:
+> ```sh
+>  0/6B9C12C8
+> ```
+
+> Находим объем журнальных файлов, который был сгенерирован за это время:
+> ```sh
+> postgres=# SELECT pg_size_pretty('0/6B9C12C8'::pg_lsn - '0/50D3EFF0'::pg_lsn);
+> ```
+> Объем журнальных файлов:
+>
+> <image src="images/pg_size_pretty.png" alt="pg_size_pretty">
+
+> Количество записей в журнале:
+> ```sh
+> postgres=# SELECT '0/6B9C12C8'::pg_lsn - '0/50D3EFF0'::pg_lsn;
+> ```
+>
+> <image src="images/pg_size_pretty_count.png" alt="pg_size_pretty_count">
+
+> Находим количество контрольных точек, с последней очистки:
+> ```sh
+> postgres=# SELECT checkpoints_timed, checkpoints_req FROM pg_stat_bgwriter;
+> ```
+> <image src="images/checkpoint_count.png" alt="checkpoint_count">
+
+
 
 ### 4. Проверьте данные статистики: все ли контрольные точки выполнялись точно по расписанию. Почему так произошло?
 
