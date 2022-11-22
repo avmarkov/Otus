@@ -133,7 +133,7 @@
 > postgres=# \c test_crc;
 > test_crc=# CREATE TABLE test (
 >      id     integer,                                      
-> 	 name   text
+> 	   name   text
 >  );
 > ```
 
@@ -143,13 +143,14 @@
 > test_crc=# INSERT INTO test values (2, 'два');
 > ```
 
-> Посмотри где лежит таблица 
+> Посмотрим где лежит таблица: 
 > ```sh
-test_crc=# SELECT pg_relation_filepath('test');
+> test_crc=# SELECT pg_relation_filepath('test');
 > ```
+>
 > Здесь:
 > ```sh
-base/16393/16394
+> base/16393/16394
 > ```
 
 > Выключил кластер
@@ -169,7 +170,7 @@ base/16393/16394
 
 > Можно проигнорировать эту ошибку так:
 > ```sh
-test_crc=# SET ignore_checksum_failure = on;
+> test_crc=# SET ignore_checksum_failure = on;
 > ```
 > Результат:
 > 
