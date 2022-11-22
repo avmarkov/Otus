@@ -170,7 +170,7 @@
 
 > Можно проигнорировать эту ошибку так:
 > ```sh
-test_crc=# SET ignore_checksum_failure = on;
+> test_crc=# SET ignore_checksum_failure = on;
 > ```
 > Результат:
 > 
