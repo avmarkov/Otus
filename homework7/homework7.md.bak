@@ -79,7 +79,11 @@
 > UPDATE accounts SET amount = amount + 100.00 WHERE acc_no = 1;
 > SELECT * FROM locks_v WHERE pid = 32372;
 > ```
+<<<<<<< .merge_file_a35460
+> <image src="images/tr1_lock_.png" alt="tr1_lock_">
+=======
 > <image src="images/tr1_lock.png" alt="tr1_lock">
+>>>>>>> .merge_file_a27544
 >
 > Первая транзакция обновляет и, соответственно, блокирует строку, т.е. она удерживает блокировку строки и собственного номера
 
