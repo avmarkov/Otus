@@ -170,9 +170,15 @@
 > Транзакция 3
 > ```sql
 > locks=*# UPDATE accounts SET amount = amount + 100.00 WHERE acc_no = 1;
-> ``
+> ```
 
+> Результат:
+>
+> <image src="images/deadlock.png" alt="deadlock">
 
+> Разобраться в ситуации постфактум, изучая журнал сообщений можно, в нем есть сообщения про deadlock:
+>
+> <image src="images/deadlock.png" alt="deadlock">
 
 
 ### 4. Могут ли две транзакции, выполняющие единственную команду UPDATE одной и той же таблицы (без where), заблокировать друг друга?
