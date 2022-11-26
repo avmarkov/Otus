@@ -49,6 +49,23 @@
 > locks=# INSERT INTO accounts VALUES (1,1000.00), (2,2000.00), (3,3000.00);
 > ```
 
+> Создадим представления над pg_locks для получение необходимой информации о блокироваках:
+> ```sql
+> CREATE VIEW locks_v AS
+> SELECT pid,
+>        locktype,
+>        CASE locktype
+>          WHEN 'relation' THEN relation::regclass::text
+>          WHEN 'transactionid' THEN transactionid::text
+>          WHEN 'tuple' THEN relation::regclass::text||':'||tuple::text
+>        END AS lockid,
+>        mode,
+>        granted
+> FROM pg_locks
+> WHERE locktype in ('relation','transactionid','tuple')
+> AND (locktype != 'relation' OR relation = 'accounts'::regclass);
+> ```
+
 ### 3. Воспроизведите взаимоблокировку трех транзакций. Можно ли разобраться в ситуации постфактум, изучая журнал сообщений?
 
 ### 4. Могут ли две транзакции, выполняющие единственную команду UPDATE одной и той же таблицы (без where), заблокировать друг друга?

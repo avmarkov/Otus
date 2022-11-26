@@ -66,6 +66,23 @@
 > AND (locktype != 'relation' OR relation = 'accounts'::regclass);
 > ```
 
+> Начнем первую транзакцию 
+> ```sql
+> BEGIN;
+> SELECT txid_current(), pg_backend_pid();
+> ```
+>
+> <image src="images/tr1_bk_n.png" alt="tr1_bk_n">
+
+> Обновим строку в этой транзакции.
+> ```sql
+> UPDATE accounts SET amount = amount + 100.00 WHERE acc_no = 1;
+> SELECT * FROM locks_v WHERE pid = 474;
+> ```
+> <image src="images/tr1_lock.png" alt="tr1_lock">
+>
+> Первая транзакция обновляет и, соответственно, блокирует строку, т.е. она удерживает блокировку строки и собственного номера
+
 ### 3. Воспроизведите взаимоблокировку трех транзакций. Можно ли разобраться в ситуации постфактум, изучая журнал сообщений?
 
 ### 4. Могут ли две транзакции, выполняющие единственную команду UPDATE одной и той же таблицы (без where), заблокировать друг друга?
