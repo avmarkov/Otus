@@ -137,9 +137,49 @@
 >
 > Получается «очередь», в которой есть первый - 32372 (тот, кто удерживает блокировку версии строки) потом второй - 32741, который ожидает первый и все остальные (у нас только 33247), которые ожидают получение блокировки типа tuple для обновляемой строки
 
-
-
 ### 3. Воспроизведите взаимоблокировку трех транзакций. Можно ли разобраться в ситуации постфактум, изучая журнал сообщений?
+
+> Транзакция 1
+> ```sql
+> locks=# BEGIN;
+> locks=*# UPDATE accounts SET amount = amount - 100.00 WHERE acc_no = 1;
+> ```
+
+> Транзакция 2
+> ```sql
+> locks=# BEGIN;
+> locks=*# UPDATE accounts SET amount = amount - 100.00 WHERE acc_no = 2;
+> ```
+
+> Транзакция 3
+> ```sql
+> locks=# BEGIN;
+> locks=*# UPDATE accounts SET amount = amount - 100.00 WHERE acc_no = 3;
+> ```
+
+> Транзакция 1
+> ```sql
+> locks=*# UPDATE accounts SET amount = amount + 100.00 WHERE acc_no = 2;
+> ```
+
+> Транзакция 2
+> ```sql
+> locks=*# UPDATE accounts SET amount = amount + 100.00 WHERE acc_no = 3;
+> ```
+
+> Транзакция 3
+> ```sql
+> locks=*# UPDATE accounts SET amount = amount + 100.00 WHERE acc_no = 1;
+> ```
+
+> Результат:
+>
+> <image src="images/deadlock.png" alt="deadlock">
+
+> Разобраться в ситуации постфактум, изучая журнал сообщений можно, в нем есть сообщения про deadlock:
+>
+> <image src="images/deadlock.png" alt="deadlock">
+
 
 ### 4. Могут ли две транзакции, выполняющие единственную команду UPDATE одной и той же таблицы (без where), заблокировать друг друга?
 > Могут, например, я это воспроизвел в первом пункте этой домашней работы. Две транзакции выполняют единственную команду UPDATE одной и той же таблицы (без where).
