@@ -118,7 +118,7 @@
 > ```sql
 > locks=*# UPDATE accounts SET amount = amount + 100.00 WHERE acc_no = 1;
 > ```
-> <image src="images/tr3.png" alt="tr3">
+> <image src="images/tr3_.png" alt="tr3_">
 
 ### 3. Воспроизведите взаимоблокировку трех транзакций. Можно ли разобраться в ситуации постфактум, изучая журнал сообщений?
 
