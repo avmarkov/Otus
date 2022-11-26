@@ -77,7 +77,7 @@
 > Обновим строку в этой транзакции.
 > ```sql
 > UPDATE accounts SET amount = amount + 100.00 WHERE acc_no = 1;
-> SELECT * FROM locks_v WHERE pid = 474;
+> SELECT * FROM locks_v WHERE pid = 32372;
 > ```
 > <image src="images/tr1_lock.png" alt="tr1_lock">
 >
