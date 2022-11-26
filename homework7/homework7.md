@@ -73,7 +73,7 @@
 > ```
 >
 > <image src="images/tr1_bk_n.png" alt="tr1_bk_n">
-
+>
 > Обновим строку в этой транзакции.
 > ```sql
 > UPDATE accounts SET amount = amount + 100.00 WHERE acc_no = 1;
@@ -82,6 +82,19 @@
 > <image src="images/tr1_lock.png" alt="tr1_lock">
 >
 > Первая транзакция обновляет и, соответственно, блокирует строку, т.е. она удерживает блокировку строки и собственного номера
+
+> Начинаем вторую транзакцию.
+> ```sql
+> BEGIN;
+> SELECT txid_current(), pg_backend_pid();
+> ```
+>
+> Пытаемся обновить ту же строку во второй транзакции
+> ```sql
+locks=*# UPDATE accounts SET amount = amount + 100.00 WHERE acc_no = 1;
+> ```
+>
+> <image src="images/tr2.png" alt="tr2">
 
 ### 3. Воспроизведите взаимоблокировку трех транзакций. Можно ли разобраться в ситуации постфактум, изучая журнал сообщений?
 
