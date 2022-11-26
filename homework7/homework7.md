@@ -91,7 +91,7 @@
 >
 > Пытаемся обновить ту же строку во второй транзакции
 > ```sql
-locks=*# UPDATE accounts SET amount = amount + 100.00 WHERE acc_no = 1;
+> locks=*# UPDATE accounts SET amount = amount + 100.00 WHERE acc_no = 1;
 > ```
 >
 > <image src="images/tr2.png" alt="tr2">
