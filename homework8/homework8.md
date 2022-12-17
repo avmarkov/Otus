@@ -14,7 +14,51 @@
 > <image src="images/pg_cluster.png" alt="pg_cluster">
 
 ### 3. Настроить кластер PostgreSQL 14 на максимальную производительность не обращая внимание на возможные проблемы с надежностью в случае аварийной перезагрузки виртуальной машины
+> У меня ВМ с 2 ядрами, 4 GB RAM, поэтому параметры выбрал такими:
+> ```sh
+> max_connections = 100
+> shared_buffers = 1GB
+> effective_cache_size = 3GB
+> maintenance_work_mem = 256MB
+> checkpoint_completion_target = 0.9
+> wal_buffers = 16MB
+> default_statistics_target = 100
+> random_page_cost = 4
+> effective_io_concurrency = 2
+> work_mem = 2621kB
+> min_wal_size = 1GB
+> max_wal_size = 4GB
+> ```
+> Отдельно обращаю внимание, что пока оставил "synchronous_commit = on"
 
 ### 3. Нагрузить кластер через утилиту https://github.com/Percona-Lab/sysbench-tpcc (требует установки https://github.com/akopytov/sysbench) или через утилиту pgbench (https://postgrespro.ru/docs/postgrespro/14/pgbench)
+> Нагружаю кластер через pgbench
+> ```sh
+> aleksandr@ubuntu2204-vm:~$ sudo -u postgres pgbench -i postgres
+> ```
+
+> Нагружаю кластер так (120 сек длительность теста, каждые 10 сек вывожу на экран информацию о tps, 50 подключений)
+> ```sh
+> aleksandr@ubuntu2204-vm:~$ sudo -u postgres pgbench -c 50 -P 10 -T 120 -U postgres postgres
+> ```
+
+> Результат
+> 
+> <image src="images/tps1.png" alt="tps1">
+
+> Теперь, не обращая внимание на возможные проблемы с надежностью в случае аварийной перезагрузки виртуальной машины, устанавливаю параметр synchronous_commit = off
+> Запускаю такой же тест:  
+> ```sh
+> aleksandr@ubuntu2204-vm:~$ sudo -u postgres pgbench -c 50 -P 10 -T 120 -U postgres postgres
+> ```
+
+> Результат
+> 
+> <image src="images/tps1.png" alt="tps2">
 
 ### 4. Написать какого значения tps удалось достичь, показать какие параметры в какие значения устанавливали и почему
+> tps с synchronous_commit = off оказался примерно в 5 раз больше. Т.е. сервер работает быстрее в 5 раз. Но в этом случае сбой операционной системы или базы данных может привести к потере последних транзакций, считавшихся зафиксированными.
+> Кроме установил:
+> * shared_buffers = 1GB (25 % от общей RAM на сервере)
+> * effective_cache_size = 3GB (75% от общей RAM на сервере)
+> * maintenance_work_mem = 256MB (Определяет максимальное количество ОП для операций типа VACUUM, CREATE INDEX, CREATE FOREIGN KEY)
