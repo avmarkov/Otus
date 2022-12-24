@@ -24,13 +24,17 @@
 > postgres=# \c db_repl;
 > ```
 
-Создаем таблицу test и вставляем в нее значения:
+> Создаем таблицу test и вставляем в нее значения:
 > ```sql
 > db_repl=# create table test(id integer, description text);
 > db_repl=# INSERT INTO test(id, description) VALUES (1, 'Один'), (2, 'Два'), (3, 'Три');
 > ```
-
-Создаем пустую таблицу test2:
+>
+> Результат:
+> 
+> <image src="images/db_repl.png" alt="db_repl">
+>
+> Создаем пустую таблицу test2:
 > ```sql
 > db_repl=# create table test2(id integer, description text);
 > ```
