@@ -58,7 +58,7 @@
 > ```
 > Результат:
 > 
-> <image src="images/db_rep2.png" alt="db_rep2">
+> <image src="images/db_repl2.png" alt="db_repl2">
 >
 > Создаем пустую таблицу test:
 > ```sql

@@ -39,11 +39,37 @@
 > db_repl=# create table test2(id integer, description text);
 > ```
 
-### 2. Создаем публикацию таблицы test и подписываемся на публикацию таблицы test2 с ВМ №2.
+### 2. На 2 ВМ создаем таблицы test2 для записи, test для запросов на чтение. 
+> Подключаемся ко второму кластеру (порт 5433)
+> ```sql
+> aleksandr@ubuntu2204-vm:~$ sudo -u postgres psql -p 5433
+> ```
 
-### 3. На 2 ВМ создаем таблицы test2 для записи, test для запросов на чтение. 
+> Создаем БД db_repl и подключаемся к ней:
+> ```sql
+> postgres=# create database db_repl;
+> postgres=# \c db_repl;
+> ```
 
-### 4. Создаем публикацию таблицы test2 и подписываемся на публикацию таблицы test1 с ВМ №1. 
+> Создаем таблицу test2 и вставляем в нее значения:
+> ```sql
+> db_repl=# create table test2(id integer, description text);
+> db_repl=# INSERT INTO test2(id, description) VALUES (4, 'Четыре'), (5, 'Пять'), (6, 'Шесть');
+> ```
+> Результат:
+> 
+> <image src="images/db_rep2.png" alt="db_rep2">
+>
+> Создаем пустую таблицу test:
+> ```sql
+> db_repl=# create table test(id integer, description text);
+> ```
+
+### 3. На 1 ВМ создаем публикацию таблицы test и подписываемся на публикацию таблицы test2 с ВМ №2.
+
+
+
+### 4. На 2 ВМ создаем публикацию таблицы test2 и подписываемся на публикацию таблицы test1 с ВМ №1. 
 
 ### 5. 3 ВМ использовать как реплику для чтения и бэкапов (подписаться на таблицы из ВМ №1 и №2 ). 
 
