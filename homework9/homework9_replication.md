@@ -23,7 +23,7 @@
 > postgres=# create database db_repl;
 > postgres=# \c db_repl;
 > ```
-
+>
 > Создаем таблицу test и вставляем в нее значения:
 > ```sql
 > db_repl=# create table test(id integer, description text);
@@ -44,13 +44,13 @@
 > ```sql
 > aleksandr@ubuntu2204-vm:~$ sudo -u postgres psql -p 5433
 > ```
-
+>
 > Создаем БД db_repl и подключаемся к ней:
 > ```sql
 > postgres=# create database db_repl;
 > postgres=# \c db_repl;
 > ```
-
+>
 > Создаем таблицу test2 и вставляем в нее значения:
 > ```sql
 > db_repl=# create table test2(id integer, description text);
@@ -65,12 +65,53 @@
 > db_repl=# create table test(id integer, description text);
 > ```
 
-### 3. На 1 ВМ создаем публикацию таблицы test и подписываемся на публикацию таблицы test2 с ВМ №2.
+### 3. На 1 ВМ создаем публикацию таблицы test 
+> Подключаемся к первому кластеру (порт 5432) и подключаемся к БД db_repl
+> ```sql
+> aleksandr@ubuntu2204-vm:~$ sudo -u postgres psql -p 5432
+> postgres=# \c db_repl;
+> ```
+>
+> Создаем публикацию test_pub таблицы test
+> ```sql
+> db_repl=# CREATE PUBLICATION test_pub FOR TABLE test;
+> ```
+>
+> Просмотр созданной публикации
+> ```sql
+> db_repl=# \dRp+
+> ```
+> Результат:
+>
+> <image src="images/test_pub.png" alt="test_pub">
+>
 
 
+### 4. На 2 ВМ создаем публикацию таблицы test2 
+> Подключаемся ко второму кластеру (порт 5433) и подключаемся к БД db_repl
+> ```sql
+> aleksandr@ubuntu2204-vm:~$ sudo -u postgres psql -p 5433
+> postgres=# \c db_repl;
+> ```
+>
+> Создаем публикацию test2_pub таблицы test2
+> ```sql
+> db_repl=# CREATE PUBLICATION test2_pub FOR TABLE test2;
+> ```
+>
+> Просмотр созданной публикации
+> ```sql
+> db_repl=# \dRp+
+> ```
+> Результат:
+>
+> <image src="images/test2_pub.png" alt="test2_pub">
+>
 
-### 4. На 2 ВМ создаем публикацию таблицы test2 и подписываемся на публикацию таблицы test1 с ВМ №1. 
+### 5. На ВМ 1 подписываемся на публикацию таблицы test2 с ВМ №2.
 
-### 5. 3 ВМ использовать как реплику для чтения и бэкапов (подписаться на таблицы из ВМ №1 и №2 ). 
+### 6. На ВМ 2 подписываемся на публикацию таблицы test с ВМ №1. 
+
+### 7. 3 ВМ использовать как реплику для чтения и бэкапов (подписаться на таблицы из ВМ №1 и №2 ). 
 
 ### 6. Небольшое описание, того, что получилось.
