@@ -8,7 +8,7 @@
 > 
 > <image src="images/3_pg_clusters.png" alt="3_pg_clusters">
 
-> Задаем на первом кластере wal_level=logical:
+> Задаем на всех трех кластерах wal_level=logical:
 > ```sql
 > aleksandr@ubuntu2204-vm:~$ sudo -u postgres psql -p 5432
 > postgres=# ALTER SYSTEM SET wal_level = logical;
@@ -179,5 +179,75 @@
 > Данные появились. Логическая репликация сработала
 
 ### 7. 3 ВМ использовать как реплику для чтения и бэкапов (подписаться на таблицы из ВМ №1 и №2 ). 
+> Подключаемся к первому кластеру (порт 5432) и подключаемся к БД db_repl
+> ```sql
+> aleksandr@ubuntu2204-vm:~$ sudo -u postgres psql -p 5432
+> postgres=# \c db_repl;
+> ```
+>
+> Создаем публикацию test2_pub таблицы test2 в первом кластере
+> ```sql
+> db_repl=# CREATE PUBLICATION test2_pub FOR TABLE test2;
+> ```
+
+> Подключаемся ко второму кластеру (порт 5433) и подключаемся к БД db_repl
+> ```sql
+> aleksandr@ubuntu2204-vm:~$ sudo -u postgres psql -p 5433
+> postgres=# \c db_repl;
+> ```
+>
+> Создаем публикацию test_pub таблицы test во втором кластере
+> ```sql
+> db_repl=# CREATE PUBLICATION test_pub FOR TABLE test;
+> ```
+
+> Подключаемся к третьему кластеру (порт 5434)
+> ```sql
+> aleksandr@ubuntu2204-vm:~$ sudo -u postgres psql -p 5434
+> ```
+>
+> Создаем БД db_repl и подключаемся к ней:
+> ```sql
+> postgres=# create database db_repl;
+> postgres=# \c db_repl;
+> ```
+>
+> Создаем пустые таблицы test и test2:
+> ```sql
+> db_repl=# create table test(id integer, description text);
+> db_repl=# create table test2(id integer, description text);
+> ```
+
+> Создаем в третьем кластере подписку на таблицу test2 первого кластера: 
+> ```sql
+> CREATE SUBSCRIPTION test2_sub 
+> CONNECTION 'host=localhost port=5432 user=postgres password=pas123 dbname=db_repl' 
+> PUBLICATION test2_pub WITH (copy_data = true);
+> ```
+>
+> Посмотрим появились ли данные в таблице test2 третьего кластера
+> ```sql
+> db_repl=# select * from test2;
+> ```
+>
+> <image src="images/sel3_test2.png" alt="sel3_test2">
+>
+> Данные появились. Логическая репликация сработала
+
+> Создаем в третьем кластере подписку на таблицу test второго кластера: 
+> ```sql
+> CREATE SUBSCRIPTION test_sub 
+> CONNECTION 'host=localhost port=5433 user=postgres password=pas123 dbname=db_repl' 
+> PUBLICATION test_pub WITH (copy_data = true);
+> ```
+>
+> Посмотрим появились ли данные в таблице test третьего кластера
+> ```sql
+> db_repl=# select * from test;
+> ```
+>
+> <image src="images/sel3_test.png" alt="sel3_test">
+>
+> Данные появились. Логическая репликация сработала
 
 ### 6. Небольшое описание, того, что получилось.
