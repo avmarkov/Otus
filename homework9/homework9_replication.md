@@ -85,6 +85,10 @@
 >
 > <image src="images/test_pub.png" alt="test_pub">
 >
+> Задаем пароль pas123
+> ```sql
+> db_repl=# \password
+> ```
 
 
 ### 4. На 2 ВМ создаем публикацию таблицы test2 
@@ -107,6 +111,10 @@
 >
 > <image src="images/test2_pub.png" alt="test2_pub">
 >
+> Задаем пароль pas123
+> ```sql
+> db_repl=# \password
+> ```
 
 ### 5. На ВМ 1 подписываемся на публикацию таблицы test2 с ВМ №2.
 > Подключаемся к первому кластеру (порт 5432) и подключаемся к БД db_repl
@@ -129,7 +137,7 @@
 > Результат:
 >
 > <image src="images/sub2.png" alt="sub2">
->
+
 > Посмотрим появились ли данные в таблице test2 первого кластера
 > ```sql
 > db_repl=# select * from test2;
@@ -139,8 +147,36 @@
 >
 > Данные появились. Логическая репликация сработала
 
-
 ### 6. На ВМ 2 подписываемся на публикацию таблицы test с ВМ №1. 
+> Подключаемся ко второму кластеру (порт 5433) и подключаемся к БД db_repl
+> ```sql
+> aleksandr@ubuntu2204-vm:~$ sudo -u postgres psql -p 5433
+> postgres=# \c db_repl;
+> ```
+
+> Создаем во втором кластере подписку на таблицу test первого кластера:
+> ```sql
+> CREATE SUBSCRIPTION test_sub 
+> CONNECTION 'host=localhost port=5432 user=postgres password=pas123 dbname=db_repl' 
+> PUBLICATION test_pub WITH (copy_data = true);
+> ```
+>
+> Смотрим состояние подписки:
+> ```sql
+> db_repl=# \dRs
+> ```
+> Результат:
+>
+> <image src="images/sub1.png" alt="sub1">
+
+> Посмотрим появились ли данные в таблице test второго кластера
+> ```sql
+> db_repl=# select * from test;
+> ```
+>
+> <image src="images/sel_test.png" alt="sel_test">
+>
+> Данные появились. Логическая репликация сработала
 
 ### 7. 3 ВМ использовать как реплику для чтения и бэкапов (подписаться на таблицы из ВМ №1 и №2 ). 
 
