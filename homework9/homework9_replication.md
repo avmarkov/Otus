@@ -109,6 +109,36 @@
 >
 
 ### 5. На ВМ 1 подписываемся на публикацию таблицы test2 с ВМ №2.
+> Подключаемся к первому кластеру (порт 5432) и подключаемся к БД db_repl
+> ```sql
+> aleksandr@ubuntu2204-vm:~$ sudo -u postgres psql -p 5432
+> postgres=# \c db_repl;
+> ```
+
+> Создаем в первом кластере подписку на таблицу test2 воторого кластера: 
+> ```sql
+> db_repl=# CREATE SUBSCRIPTION test2_sub 
+> CONNECTION 'host=localhost port=5433 user=postgres password=pas123 dbname=db_repl' 
+> PUBLICATION test2_pub WITH (copy_data = true);
+> ```
+>
+> Смотрим состояние подписки:
+> ```sql
+> db_repl=# \dRs
+> ```
+> Результат:
+>
+> <image src="images/sub2.png" alt="sub2">
+>
+> Посмотрим появились ли данные в таблице test2 первого кластера
+> ```sql
+> db_repl=# select * from test2;
+> ```
+>
+> <image src="images/sel_test2.png" alt="sel_test2">
+>
+> Данные появились. Логическая репликация сработала
+
 
 ### 6. На ВМ 2 подписываемся на публикацию таблицы test с ВМ №1. 
 
