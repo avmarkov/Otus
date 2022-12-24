@@ -8,13 +8,43 @@
 > 
 > <image src="images/3_pg_clusters.png" alt="3_pg_clusters">
 
+> Задаем на первом кластере wal_level=logical:
+> ```sql
+> aleksandr@ubuntu2204-vm:~$ sudo -u postgres psql -p 5432
+> postgres=# ALTER SYSTEM SET wal_level = logical;
+> aleksandr@ubuntu2204-vm:~$ sudo pg_ctlcluster 14 main1 restart;
+> ```
+> Результат:
+>
+> <image src="images/wal_level.png" alt="wal_level">
 
-### 2.  Создаем публикацию таблицы test и подписываемся на публикацию таблицы test2 с ВМ №2.
+> Создаем БД db_repl и подключаемся к ней:
+> ```sql
+> postgres=# create database db_repl;
+> postgres=# \c db_repl;
+> ```
 
-### 3.  На 2 ВМ создаем таблицы test2 для записи, test для запросов на чтение. 
+> Создаем таблицу test и вставляем в нее значения:
+> ```sql
+> db_repl=# create table test(id integer, description text);
+> db_repl=# INSERT INTO test(id, description) VALUES (1, 'Один'), (2, 'Два'), (3, 'Три');
+> ```
+>
+> Результат:
+> 
+> <image src="images/db_repl.png" alt="db_repl">
+>
+> Создаем пустую таблицу test2:
+> ```sql
+> db_repl=# create table test2(id integer, description text);
+> ```
+
+### 2. Создаем публикацию таблицы test и подписываемся на публикацию таблицы test2 с ВМ №2.
+
+### 3. На 2 ВМ создаем таблицы test2 для записи, test для запросов на чтение. 
 
 ### 4. Создаем публикацию таблицы test2 и подписываемся на публикацию таблицы test1 с ВМ №1. 
 
-### 5.  3 ВМ использовать как реплику для чтения и бэкапов (подписаться на таблицы из ВМ №1 и №2 ). 
+### 5. 3 ВМ использовать как реплику для чтения и бэкапов (подписаться на таблицы из ВМ №1 и №2 ). 
 
-### 6.  Небольшое описание, того, что получилось.
+### 6. Небольшое описание, того, что получилось.
