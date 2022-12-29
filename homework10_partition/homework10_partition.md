@@ -63,3 +63,10 @@
 > ```sql
 > INSERT 0 593433
 > ```
+
+> Посмотрим как распределились данные по секционированной таблице:
+> ```sql
+> SELECT tableoid::regclass, count(*) FROM bookings.bookings_range GROUP BY tableoid;
+> ```
+>
+> <image src="images/sel_part.png" alt="sel_part">

@@ -58,3 +58,8 @@
 > ```sql
 > INSERT INTO bookings.bookings_range SELECT * FROM bookings.bookings;
 > ```
+> 
+> Результат:
+> ```sql
+> INSERT 0 593433
+> ```
