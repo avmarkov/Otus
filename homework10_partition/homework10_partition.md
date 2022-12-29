@@ -2,6 +2,7 @@
 
 ### 1. На 1 ВМ создаем таблицы test для записи, test2 для запросов на чтение.
 > Для выполнения этой домашней работы я развернул виртуальную машину у себя с помощью VMware.
+>
 > Установим БД demo из postgrespro.ru
 >
 > ```sql
@@ -14,3 +15,15 @@
 > demo=# \dt bookings.*
 > ```
 > <image src="images/table_list.png" alt="table_list">
+
+> Будем секционировать таблицу bookings:
+> 
+> <image src="images/bookings.png" alt="bookings">
+
+> Будем секционировать таблицу bookings по полю book_date. Найдем минимальное и максимальное значение поля book_date:
+> ```sql
+> demo=# select min(book_date), min(book_date) from bookings.bookings;
+> ```
+> Результат:
+>
+> <image src="images/min_max.png" alt="min_max">
