@@ -27,3 +27,4 @@
 > Результат:
 >
 > <image src="images/min_max.png" alt="min_max">
+>

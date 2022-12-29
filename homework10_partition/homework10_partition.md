@@ -26,5 +26,5 @@
 > ```
 > Результат:
 >
-> <image src="images/min_max.png" alt="min_max">
+> <image src="images/min_max_.png" alt="min_max">
 >
