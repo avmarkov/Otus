@@ -24,7 +24,18 @@
 > ```sql
 > demo=# select min(book_date), min(book_date) from bookings.bookings;
 > ```
+>
 > Результат:
 >
 > <image src="images/min_max_.png" alt="min_max">
 >
+> Создаю секционированную по полю book_date таблицу bookings_range 
+>
+> ```sql
+> CREATE TABLE IF NOT EXISTS bookings.bookings_range
+> (
+>     book_ref character(6) COLLATE pg_catalog."default" NOT NULL,
+>     book_date timestamp with time zone NOT NULL,
+>     total_amount numeric(10,2) NOT NULL
+> ) PARTITION BY RANGE(book_date);
+> ```
