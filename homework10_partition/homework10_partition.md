@@ -39,3 +39,17 @@
 >     total_amount numeric(10,2) NOT NULL
 > ) PARTITION BY RANGE(book_date);
 > ```
+>
+> Создаю отдельные секции на каждый месяц:
+> ```sql
+> CREATE TABLE bookings_range_201606 PARTITION OF bookings.bookings_range 
+>        FOR VALUES FROM ('2016-06-01'::timestamptz) TO ('2016-07-01'::timestamptz);
+> CREATE TABLE bookings_range_201607 PARTITION OF bookings.bookings_range 
+>        FOR VALUES FROM ('2016-07-01'::timestamptz) TO ('2016-08-01'::timestamptz);
+> CREATE TABLE bookings_range_201608 PARTITION OF bookings.bookings_range 
+>        FOR VALUES FROM ('2016-08-01'::timestamptz) TO ('2016-09-01'::timestamptz);
+> CREATE TABLE bookings_range_201609 PARTITION OF bookings.bookings_range 
+>        FOR VALUES FROM ('2016-09-01'::timestamptz) TO ('2016-10-01'::timestamptz);
+> CREATE TABLE bookings_range_201610 PARTITION OF bookings.bookings_range 
+>        FOR VALUES FROM ('2016-10-01'::timestamptz) TO ('2016-11-01'::timestamptz);
+> ```

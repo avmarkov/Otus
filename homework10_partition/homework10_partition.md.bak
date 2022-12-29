@@ -29,6 +29,8 @@
 >
 > <image src="images/min_max_.png" alt="min_max">
 >
+> Создаю секционированную по полю book_date таблицу bookings_range 
+>
 > ```sql
 > CREATE TABLE IF NOT EXISTS bookings.bookings_range
 > (
@@ -36,4 +38,17 @@
 >     book_date timestamp with time zone NOT NULL,
 >     total_amount numeric(10,2) NOT NULL
 > ) PARTITION BY RANGE(book_date);
+> ```
+
+> ```sql
+> CREATE TABLE bookings_range_201606 PARTITION OF bookings.bookings_range 
+>        FOR VALUES FROM ('2016-06-01'::timestamptz) TO ('2016-07-01'::timestamptz);
+> CREATE TABLE bookings_range_201607 PARTITION OF bookings.bookings_range 
+>        FOR VALUES FROM ('2016-07-01'::timestamptz) TO ('2016-08-01'::timestamptz);
+> CREATE TABLE bookings_range_201608 PARTITION OF bookings.bookings_range 
+>        FOR VALUES FROM ('2016-08-01'::timestamptz) TO ('2016-09-01'::timestamptz);
+> CREATE TABLE bookings_range_201609 PARTITION OF bookings.bookings_range 
+>        FOR VALUES FROM ('2016-09-01'::timestamptz) TO ('2016-10-01'::timestamptz);
+> CREATE TABLE bookings_range_201610 PARTITION OF bookings.bookings_range 
+>        FOR VALUES FROM ('2016-10-01'::timestamptz) TO ('2016-11-01'::timestamptz);
 > ```
