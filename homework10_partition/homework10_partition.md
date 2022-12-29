@@ -28,7 +28,7 @@
 > Результат:
 >
 > <image src="images/min_max_.png" alt="min_max">
->
+
 > Создаю секционированную по полю book_date таблицу bookings_range 
 >
 > ```sql
@@ -39,7 +39,7 @@
 >     total_amount numeric(10,2) NOT NULL
 > ) PARTITION BY RANGE(book_date);
 > ```
->
+
 > Создаю отдельные секции на каждый месяц:
 > ```sql
 > CREATE TABLE bookings_range_201606 PARTITION OF bookings.bookings_range 
@@ -52,4 +52,9 @@
 >        FOR VALUES FROM ('2016-09-01'::timestamptz) TO ('2016-10-01'::timestamptz);
 > CREATE TABLE bookings_range_201610 PARTITION OF bookings.bookings_range 
 >        FOR VALUES FROM ('2016-10-01'::timestamptz) TO ('2016-11-01'::timestamptz);
+> ```
+
+> Заполнениим bookings_range с автоматической раскладкой по секциям:
+> ```sql
+> INSERT INTO bookings.bookings_range SELECT * FROM bookings.bookings;
 > ```
