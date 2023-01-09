@@ -70,3 +70,39 @@
 > ```
 >
 > <image src="images/sel_part.png" alt="sel_part">
+
+> Удалим внешний ключ tickets_book_ref_fkey, ссылающийся на эту таблицу:
+> ```sql
+> ALTER TABLE bookings.tickets DROP CONSTRAINT tickets_book_ref_fkey;
+> ```
+> Удалим таблицу bookings.bookings:
+> ```sql
+> truncate bookings.bookings;
+> DROP TABLE bookings.bookings;
+> ```
+
+> Переименуем таблицу bookings.bookings_range на bookings:
+> ```sql
+> ALTER TABLE bookings.bookings_range RENAME TO bookings;
+> ```
+
+> Добавим первичный ключ:
+> ```sql
+> ALTER TABLE IF EXISTS bookings.bookings ADD CONSTRAINT bookings_pkey PRIMARY KEY (book_ref, book_date);
+> ```
+
+> При попытки вернуть внешний ключ, ссылающийся на таблицу bookings.bookings
+> ```sql
+> ALTER TABLE IF EXISTS bookings.tickets
+> ADD CONSTRAINT tickets_book_ref_fkey FOREIGN KEY (book_ref)
+> REFERENCES bookings.bookings (book_ref) MATCH SIMPLE
+> ON UPDATE NO ACTION
+> ON DELETE NO ACTION;
+> ```
+> Возникает ошибка ERROR:  there is no unique constraint matching given keys for referenced table "bookings"
+> Очевидно, что ошибка из-за того, что ссылаемся на book_ref таблицы bookings.bookings, который неуникальный. 
+> При попытке сделать его уникальным также возникает ошибка, т.к. уникальный ключ должен еще включать и поле 
+> по которому происходит секционирование, т.е. поле book_date.
+> Подскажите, пожалуйста, как эту проблему поправить.
+
+

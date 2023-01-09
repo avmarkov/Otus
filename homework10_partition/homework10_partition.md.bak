@@ -63,3 +63,32 @@
 > ```sql
 > INSERT 0 593433
 > ```
+
+> Посмотрим как распределились данные по секционированной таблице:
+> ```sql
+> SELECT tableoid::regclass, count(*) FROM bookings.bookings_range GROUP BY tableoid;
+> ```
+>
+> <image src="images/sel_part.png" alt="sel_part">
+
+> Удалим внешний ключ tickets_book_ref_fkey, ссылающийся на эту таблицу:
+> ```sql
+> ALTER TABLE bookings.tickets DROP CONSTRAINT tickets_book_ref_fkey;
+> ```
+> Удалим таблицу bookings.bookings:
+> ```sql
+> truncate bookings.bookings;
+> DROP TABLE bookings.bookings;
+> ```
+
+> Переименуем таблицу bookings.bookings_range на bookings:
+> ```sql
+> ALTER TABLE bookings.bookings_range RENAME TO bookings;
+> ```
+
+> Добавим первичный ключ:
+> ```sql
+> ALTER TABLE IF EXISTS bookings.bookings ADD CONSTRAINT bookings_pkey PRIMARY KEY (book_ref, book_date);
+> ```
+
+
