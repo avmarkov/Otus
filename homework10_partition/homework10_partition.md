@@ -99,10 +99,7 @@
 > ON UPDATE NO ACTION
 > ON DELETE NO ACTION;
 > ```
-> Возникает ошибка ERROR:  there is no unique constraint matching given keys for referenced table "bookings"
-> Очевидно, что ошибка из-за того, что ссылаемся на book_ref таблицы bookings.bookings, который неуникальный. 
-> При попытке сделать его уникальным также возникает ошибка, т.к. уникальный ключ должен еще включать и поле 
-> по которому происходит секционирование, т.е. поле book_date.
+> Возникает ошибка ERROR:  there is no unique constraint matching given keys for referenced table "bookings". Очевидно, что ошибка из-за того, что ссылаемся на book_ref таблицы bookings.bookings, который неуникальный. При попытке сделать его уникальным также возникает ошибка, т.к. уникальный ключ должен еще включать и поле, по которому происходит секционирование, т.е. поле book_date.
 > Подскажите, пожалуйста, как эту проблему поправить.
 
 
