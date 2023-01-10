@@ -56,8 +56,7 @@
 
 > Заполнениим bookings_range с автоматической раскладкой по секциям:
 > ```sql
-> INSERT INTO bookings.bookings_range 
-> 		 SELECT * FROM bookings.bookings;
+> INSERT INTO bookings.bookings_range SELECT * FROM bookings.bookings;
 > ```
 > 
 > Результат:
@@ -113,9 +112,9 @@
 > ```sql
 > UPDATE bookings.tickets
 > SET book_date =
->     (SELECT book_date
-> 	   FROM bookings.bookings
->      WHERE bookings.bookings.book_ref = bookings.tickets.book_ref);
+>       (SELECT book_date
+>        FROM bookings.bookings
+>        WHERE bookings.bookings.book_ref = bookings.tickets.book_ref);
 > ```
 
 > Результат:
