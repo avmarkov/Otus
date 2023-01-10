@@ -103,4 +103,37 @@
 >
 > Подскажите, пожалуйста, как эту проблему поправить.
 
+> Решил проблему таким образом:
+> Сначала добавил поле book_date в таблицу bookings.tickets
+> Затем заполнил это поле, на основе таблицы bookings.bookings:
+> 
+> ```sql
+> UPDATE bookings.tickets
+> SET book_date =
+>     (SELECT book_date
+> 	 FROM bookings.bookings
+>      WHERE bookings.bookings.book_ref = bookings.tickets.book_ref);
+> ```
 
+> Результат:
+> ```sql 
+> UPDATE 829071
+> ```
+
+> Затем добавляем ограничение внешнего ключа, состоящего из двух полей bookings.bookings
+> ```sql
+> ALTER TABLE IF EXISTS bookings.tickets
+>     ADD CONSTRAINT tickets_book_ref_fkey FOREIGN KEY (book_date, book_ref)
+>     REFERENCES bookings.bookings (book_date, book_ref) MATCH SIMPLE
+>     ON UPDATE NO ACTION
+>     ON DELETE NO ACTION
+>     NOT VALID;
+> ```
+
+> Результат:
+> ```sql
+> ALTER TABLE
+> Query returned successfully in 96 msec.
+> ```
+
+> Ограничение внешнего ключа добавилось.
