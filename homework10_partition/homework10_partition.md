@@ -79,7 +79,7 @@
 > ```
 > Удалим таблицу bookings.bookings:
 > ```sql
-> truncate bookings.bookings;
+> TRUNCATE bookings.bookings;
 > DROP TABLE bookings.bookings;
 > ```
 
@@ -106,6 +106,7 @@
 > Подскажите, пожалуйста, как эту проблему поправить.
 
 > Решил проблему таким образом:
+>
 > Сначала добавил поле book_date в таблицу bookings.tickets
 > Затем заполнил это поле, на основе таблицы bookings.bookings:
 > 
