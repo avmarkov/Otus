@@ -130,3 +130,10 @@
 >     NOT VALID;
 > ```
 
+> Результат:
+> ```sql
+> ALTER TABLE
+> Query returned successfully in 96 msec.
+> ```
+
+> Ограничение внешнего ключа добавилось.

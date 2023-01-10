@@ -56,7 +56,8 @@
 
 > Заполнениим bookings_range с автоматической раскладкой по секциям:
 > ```sql
-> INSERT INTO bookings.bookings_range SELECT * FROM bookings.bookings;
+> INSERT INTO bookings.bookings_range 
+> 		 SELECT * FROM bookings.bookings;
 > ```
 > 
 > Результат:
@@ -66,7 +67,9 @@
 
 > Посмотрим как распределились данные по секционированной таблице:
 > ```sql
-> SELECT tableoid::regclass, count(*) FROM bookings.bookings_range GROUP BY tableoid;
+> SELECT tableoid::regclass, count(*) 
+> FROM bookings.bookings_range 
+> GROUP BY tableoid;
 > ```
 >
 > <image src="images/sel_part.png" alt="sel_part">
@@ -111,7 +114,7 @@
 > UPDATE bookings.tickets
 > SET book_date =
 >     (SELECT book_date
-> 	 FROM bookings.bookings
+> 	   FROM bookings.bookings
 >      WHERE bookings.bookings.book_ref = bookings.tickets.book_ref);
 > ```
 
@@ -123,11 +126,11 @@
 > Затем добавляем ограничение внешнего ключа, состоящего из двух полей bookings.bookings
 > ```sql
 > ALTER TABLE IF EXISTS bookings.tickets
->     ADD CONSTRAINT tickets_book_ref_fkey FOREIGN KEY (book_date, book_ref)
->     REFERENCES bookings.bookings (book_date, book_ref) MATCH SIMPLE
->     ON UPDATE NO ACTION
->     ON DELETE NO ACTION
->     NOT VALID;
+> ADD CONSTRAINT tickets_book_ref_fkey FOREIGN KEY (book_date, book_ref)
+> REFERENCES bookings.bookings (book_date, book_ref) MATCH SIMPLE
+> ON UPDATE NO ACTION
+> ON DELETE NO ACTION
+> NOT VALID;
 > ```
 
 > Результат:
