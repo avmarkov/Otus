@@ -1,7 +1,6 @@
 # Домашняя работа № 11. Работа с индексами, join'ами, статистикой.
 
-## 1 вариант:
-## Создать индексы на БД, которые ускорят доступ к данным.
+## 1 вариант. Создать индексы на БД, которые ускорят доступ к данным.
 
 ### 1. Создать индекс к какой-либо из таблиц вашей БД
 > Создадим таблицу test с тремя полями id, col2, is_okay. Заполним таблицу значениями. И сразу создадим B-tree индекс в этом же скрипте.
@@ -26,6 +25,66 @@
 > В данном запросе используется только индексное сканирование: "Index Only Scan". Т.е. наш запрос select исполует именно индексное сканирование.
 
 ### 3. Реализовать индекс для полнотекстового поиска
+> Создадим таблицу orders
+> ```sql
+> create table orders (
+>     id int,
+>     user_id int,
+>     order_date date,
+>     status text,
+>     some_text text
+> );
+> ```
+
+> Заполним таблицу значениями:
+> ```sql
+> insert into dbt.orders(id, user_id, order_date, status, some_text)
+> select generate_series, (random() * 70), date'2019-01-01' + (random() * 300)::int as order_date
+>         	  , (array['returned', 'completed', 'placed', 'shipped'])[(random() * 4)::int]
+>             , concat_ws(' ', (array['go', 'space', 'sun', 'London'])[(random() * 5)::int]
+>                 , (array['the', 'capital', 'of', 'Great', 'Britain'])[(random() * 6)::int]
+>                 , (array['some', 'another', 'example', 'with', 'words'])[(random() * 6)::int]
+>             )
+> from generate_series(100001, 1000000);
+> ```
+
+> Посмотрим план запроса без полнотекствого поиска:
+> ```sql
+> explain
+> select some_text, to_tsvector(some_text) @@ to_tsquery('britains')
+> from orders;
+> ```
+> Результат:
+>
+> <image src="images/explain5.png" alt="explain5">
+> Тут видим Parallel Seq Scan. И большие цифры cost=1000.00..290398.50 rows=900000 width=15. Попробуем реализовать индекс для полнотекстового поиска. 
+
+> Добавим поле some_text_lexeme типа tsvector
+> ```sql
+> alter table orders add column some_text_lexeme tsvector;
+> ```
+>
+> Заполним это поле данными:
+> ```sql
+> update orders
+> set some_text_lexeme = to_tsvector(some_text);
+> ```
+>
+> Создадим GIN-индекс для полнотекстового поиска:
+> ```sql
+> CREATE INDEX search_index_ord ON orders USING GIN (some_text_lexeme);
+> ```
+>
+> Посмотрим план запроса, который будет использовать индекс для полнекствого поиска:
+> ```sql
+> explain
+> select *
+> from orders
+> where some_text_lexeme @@ to_tsquery('britains');
+> ```
+> Результат:
+> <image src="images/explain6.png" alt="explain6">
+> Теперь у нас используется GIN- индекс полнотекствого поиска. Количество cost значительно уменьшилось.
 
 ### 4. Реализовать индекс на часть таблицы или индекс на поле с функцией
 > Создадим индекс на часть таблицы
@@ -90,8 +149,7 @@
 >
 > В данном запросе используется только индексное сканирование: "Index Scan using...". Т.е. наш запрос select с двумя полями id, is_okay в секции where исполует именно индексное сканирование.
 
-## 2 вариант:
-## Написание запросов с различными типами соединений
+## 2 вариант. Написание запросов с различными типами соединений
 
 ### 1. Реализовать прямое соединение двух или более таблиц
 
