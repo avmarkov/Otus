@@ -57,6 +57,7 @@
 > Результат:
 >
 > <image src="images/explain5.png" alt="explain5">
+>
 > Тут видим Parallel Seq Scan. И большие цифры cost=1000.00..290398.50 rows=900000 width=15. Попробуем реализовать индекс для полнотекстового поиска. 
 
 > Добавим поле some_text_lexeme типа tsvector
@@ -83,7 +84,7 @@
 > where some_text_lexeme @@ to_tsquery('britains');
 > ```
 > Результат:
-> <image src="images/explain5.png" alt="explain5">
+> <image src="images/explain6.png" alt="explain6">
 > Теперь у нас используется GIN- индекс полнотекствого поиска. Количество cost значительно уменьшилось.
 
 ### 4. Реализовать индекс на часть таблицы или индекс на поле с функцией
