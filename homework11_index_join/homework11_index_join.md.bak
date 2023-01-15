@@ -4,8 +4,24 @@
 ### Создать индексы на БД, которые ускорят доступ к данным.
 
 ### 1. Создать индекс к какой-либо из таблиц вашей БД
+> Создадим таблицу test с тремя полями id, col2, is_okay. Заполним таблицу значениями. И сразу создам B-tree индекс в этом же скрипет.
+> ```sql
+> create table test as 
+> select generate_series as id
+>        , generate_series::text || (random() * 10)::text as col2 
+>        , (array['Yes', 'No', 'Maybe'])[floor(random() * 3 + 1)] as is_okay
+> from generate_series(1, 50000);
+> create index idx_test_id on test(id);
+> ```
 
 ### 2. Прислать текстом результат команды explain, в которой используется данный индекс
+> ```sql
+> explain
+> select id from test where id = 1;
+> ```
+> Результат:
+>
+> <image src="images/explain1.png" alt="explain1">
 
 ### 3. Реализовать индекс для полнотекстового поиска
 
