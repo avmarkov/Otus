@@ -28,6 +28,39 @@
 ### 3. Реализовать индекс для полнотекстового поиска
 
 ### 4. Реализовать индекс на часть таблицы или индекс на поле с функцией
+> Создадим индекс на часть таблицы
+> Сначала удалим таблицу test:
+> ```sql
+> drop table test;
+> ```
+
+> Создадим таблицу test с тремя полями id, col2, is_okay. Заполним таблицу значениями. И сразу создадим B-tree индекс на часть таблицы на поле id .
+> ```sql
+> create table test as 
+> select generate_series as id
+>         , generate_series::text || (random() * 10)::text as col2 
+>         , (array['Yes', 'No', 'Maybe'])[floor(random() * 3 + 1)] as is_okay
+> from generate_series(1, 50000);
+> create index idx_test_id_100 on test(id) where id < 100;
+> ```
+
+> Посмотрим план запроса:
+> ```sql
+> explain
+> select * from test where id < 100;
+> ```
+> Результат:
+>
+> <image src="images/explain3.png" alt="explain3">
+> В данном запросе используется только индексное сканирование: "Index Scan using...". Т.е. наш запрос select с условием id < 100 именно индексное сканирование. Т.к. индекс у нас именно на часть таблицы (id < 100)
+
+> Если посмотреть на план запроса на часть таблицы, где индекса нет, то будет уже не индексное сканирование, а "Seq Scan":
+> ```sql
+> explain
+> select * from test where id > 100;
+> ```
+>
+> <image src="images/explain4.png" alt="explain4">
 
 ### 5. Создать индекс на несколько полей
 > Удалим таблицу test:
@@ -40,9 +73,15 @@
 > create table test as
 > select generate_series as id
 >         , generate_series::text || (random() * 10)::text as col2
->     , (array['Yes', 'No', 'Maybe'])[floor(random() * 3 + 1)] as is_okay
+>         , (array['Yes', 'No', 'Maybe'])[floor(random() * 3 + 1)] as is_okay
 > from generate_series(1, 50000);
 > create index idx_test_id_is_okay on test(id, is_okay);
+> ```
+
+> Посмотрим план запроса:
+> ```sql
+> explain
+> select * from test where id = 1 and is_okay = 'True';
 > ```
 > Результат:
 >
