@@ -60,7 +60,7 @@
 > select * from test where id > 100;
 > ```
 >
-> <image src="images/explain3.png" alt="explain3">
+> <image src="images/explain4.png" alt="explain4">
 
 ### 5. Создать индекс на несколько полей
 > Удалим таблицу test:
