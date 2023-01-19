@@ -155,8 +155,24 @@
 ## 2 вариант. Написание запросов с различными типами соединений
 
 ### 1. Реализовать прямое соединение двух или более таблиц
+> ```sql
+> select mfr.manufacturername, mdl.modelname, b.bodyname
+> from public.manufacturer mfr inner join public.model mdl on mdl.manufacturer_id = mfr.id
+>							   inner join public.body b    on mdl.body_id = b.id
+> ```
+> Результат
+> 
+> <image src="images/inner_join.png" alt="inner_join">
 
 ### 2. Реализовать левостороннее (или правостороннее) соединение двух или более таблиц
+> ```sql
+> select mfr.manufacturername, mdl.modelname, b.bodyname
+> from public.manufacturer mfr left join public.model mdl on mdl.manufacturer_id = mfr.id
+> 							   left join public.body b    on mdl.body_id = b.id
+> ```
+> Результат
+> 
+> <image src="images/left_join.png" alt="left_join">
 
 ### 3. Реализовать кросс соединение двух или более таблиц
 
