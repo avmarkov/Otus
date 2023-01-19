@@ -175,8 +175,24 @@
 > <image src="images/left_join.png" alt="left_join">
 
 ### 3. Реализовать кросс соединение двух или более таблиц
+> ```sql
+> select manufacturername, bodyname
+> from public.manufacturer
+> cross join public.body
+> ```
+> Результат
+> 
+> <image src="images/cross_join.png" alt="cross_join">
 
 ### 4. Реализовать полное соединение двух или более таблиц
+> ```sql
+> select mfr.manufacturername, mdl.modelname, b.bodyname
+> from public.manufacturer mfr full join public.model mdl on mdl.manufacturer_id = mfr.id
+>                              full join public.body b    on mdl.body_id = b.id
+> ```
+> Результат
+> 
+> <image src="images/full_join.png" alt="full_join">
 
 ### 5. Реализовать запрос, в котором будут использованы разные типы соединений
 

@@ -158,7 +158,7 @@
 > ```sql
 > select mfr.manufacturername, mdl.modelname, b.bodyname
 > from public.manufacturer mfr inner join public.model mdl on mdl.manufacturer_id = mfr.id
->							   inner join public.body b    on mdl.body_id = b.id
+>                              inner join public.body b    on mdl.body_id = b.id
 > ```
 > Результат
 > 
@@ -168,7 +168,7 @@
 > ```sql
 > select mfr.manufacturername, mdl.modelname, b.bodyname
 > from public.manufacturer mfr left join public.model mdl on mdl.manufacturer_id = mfr.id
-> 							   left join public.body b    on mdl.body_id = b.id
+>                              left join public.body b    on mdl.body_id = b.id
 > ```
 > Результат
 > 
