@@ -168,6 +168,7 @@
 >
 > Таблица ORDERS – таблица заказов
 ### 1. Реализовать прямое соединение двух или более таблиц
+> В следующем запросе мы выведем информацию о производителе, имени модели и типе кузова. Причем выведутся только те строки, которые удовлетворяют условию соединения, т.к. исползуется прямое соединение - inner join. 
 > ```sql
 > select mfr.manufacturername, mdl.modelname, b.bodyname
 > from public.manufacturer mfr inner join public.model mdl on mdl.manufacturer_id = mfr.id
@@ -178,6 +179,10 @@
 > <image src="images/inner_join.png" alt="inner_join">
 
 ### 2. Реализовать левостороннее (или правостороннее) соединение двух или более таблиц
+> В следующем запросе мы выведем все строки из таблицы MANUFACTURER и только те строки таблицы MODEL, которые удовлетворяют условию соединения.
+> Если условие соединения не выполняется, в поле modelname и bodyname  будет null.  
+> Также добавим информацию о типе кузове. Тип кузова отобразится только для тех строк, которые есть в первом left join, т.е. для которых нашелся modelname. 
+> Если типа кузова не удовлетворяет условию соединения, то в поле bodyname будет null.   
 > ```sql
 > select mfr.manufacturername, mdl.modelname, b.bodyname
 > from public.manufacturer mfr left join public.model mdl on mdl.manufacturer_id = mfr.id
@@ -188,6 +193,7 @@
 > <image src="images/left_join.png" alt="left_join">
 
 ### 3. Реализовать кросс соединение двух или более таблиц
+> Следующий запрос реализует кросс соединение, т.е декартовое произведение - всевозможные комбинации проивзодителя и типа кузова.
 > ```sql
 > select manufacturername, bodyname
 > from public.manufacturer
