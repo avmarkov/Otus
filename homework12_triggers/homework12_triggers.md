@@ -4,6 +4,9 @@
 
 ### Создать триггер на таблице продаж, для поддержки данных в витрине в актуальном состоянии (вычисляющий при каждой продаже сумму и записывающий её в витрину). Подсказка: не забыть, что кроме INSERT есть еще UPDATE и DELETE
 > Создал новую схему с таблицами и данными из предложенногос крипта hw_triggers.sql.
+>
+> Создал триггерную функцию sales_insert_update_delete_tf(). Описание этой функции оформил в виде комментариев непосредствено в самом скрипте триггерной функции
+>
 > Триггерная функция будет иметь следующий вид:
 
 ```sql
@@ -40,7 +43,7 @@ BEGIN
 				raise info 'updating goodssum, %', goodssum;
 				UPDATE pract_functions.good_sum_mart SET sum_sale = goodssum
 				WHERE good_name = goodname; 
-			ELSE -- значит суммы по товару и самого товара нет в таблице good_sum_mart, поэтому просто вставим его
+			ELSE -- значит суммы по товару и самого товара нет в таблице good_sum_mart, поэтому просто вставим товар с суммой по нему
 				raise info 'inserting goodssum, %', goodssum;
 				INSERT INTO pract_functions.good_sum_mart(good_name, sum_sale) 
 				VALUES (goodname, NEW.sales_qty * goodprice);
@@ -59,7 +62,7 @@ BEGIN
 				raise info 'updating goodssum, %', goodssum;
 				UPDATE pract_functions.good_sum_mart SET sum_sale = goodssum
 				WHERE good_name = goodname; 
-			ELSE -- значит суммы по товару и самого товара нет в таблице good_sum_mart, поэтому просто вставим его
+			ELSE -- значит суммы по товару и самого товара нет в таблице good_sum_mart, поэтому просто вставим товар с суммой по нему
 				raise info 'inserting goodssum, %', goodssum;
 				INSERT INTO pract_functions.good_sum_mart(good_name, sum_sale) 
 				VALUES (goodname, NEW.sales_qty * goodprice);
@@ -69,7 +72,7 @@ BEGIN
 			raise info 'DELETE';
 			IF (goodssum is not null)
 			THEN
-				goodssum = goodssum - OLD.sales_qty * goodprice; -- вычитаем из суммы удаляемое значение
+				goodssum = goodssum - OLD.sales_qty * goodprice; -- вычитаем из суммы по товары удаляемое значение
 				IF (goodssum < 0) 
 				THEN
 					goodssum = 0;
@@ -84,7 +87,6 @@ BEGIN
 			
 	END CASE;
 	
-	RETURN NULL;
 END;
 $BODY$;
 
