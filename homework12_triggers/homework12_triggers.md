@@ -104,7 +104,7 @@ ALTER FUNCTION pract_functions.sales_insert_update_delete_tf()
 > EXECUTE FUNCTION pract_functions.sales_insert_update_delete_tf();
 > ```
 ### Демонстрация работы триггера
-> Сначала заполним витрину 
+##### Сначала заполним витрину 
 >
 > ```sql
 > INSERT INTO pract_functions.good_sum_mart (good_name, sum_sale)
@@ -124,7 +124,7 @@ ALTER FUNCTION pract_functions.sales_insert_update_delete_tf()
 > <image src="images/first.png" alt="first">
 
 
-> Проверим INSERT:
+##### Проверим INSERT:
 > ```sql
 > INSERT INTO pract_functions.sales (good_id, sales_qty) VALUES (1, 5)
 > ```
@@ -138,7 +138,7 @@ ALTER FUNCTION pract_functions.sales_insert_update_delete_tf()
 >
 > Действительно увеличились на 2.5
 
-> Проверим *UPDATE*. Сначала посмотрим, что есть в таблице sales
+##### Проверим UPDATE. Сначала посмотрим, что есть в таблице sales
 > 
 >
 > ```sql
