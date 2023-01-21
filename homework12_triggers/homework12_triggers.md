@@ -138,7 +138,7 @@ ALTER FUNCTION pract_functions.sales_insert_update_delete_tf()
 >
 > Действительно увеличились на 2.5
 
-> Проверим UPDATE. Сначала посмотрим, что есть в таблице sales
+> Проверим *UPDATE*. Сначала посмотрим, что есть в таблице sales
 > 
 >
 > ```sql

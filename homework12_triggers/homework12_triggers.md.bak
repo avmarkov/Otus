@@ -146,7 +146,7 @@ ALTER FUNCTION pract_functions.sales_insert_update_delete_tf()
 > ORDER BY sales_id ASC
 > ```
 >
-> <image src="images/update.png" alt="update">
+> <image src="images/sales.png" alt="sales">
 >
 > Обновим запись с sales_id = 20
 > ```sql
@@ -155,7 +155,7 @@ ALTER FUNCTION pract_functions.sales_insert_update_delete_tf()
 > ```
 > Сумма по спичкам должна уменьшится на 1
 >
-> <image src="images/insert.png" alt="insert">
+> <image src="images/update.png" alt="update">
 >
 > Действительно уменьшилась на 1
 
