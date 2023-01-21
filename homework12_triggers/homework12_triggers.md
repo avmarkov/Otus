@@ -138,7 +138,9 @@ ALTER FUNCTION pract_functions.sales_insert_update_delete_tf()
 >
 > Действительно увеличились на 2.5
 
-##### Проверим UPDATE. Сначала посмотрим, что есть в таблице sales
+##### Проверим UPDATE. 
+>
+> Сначала посмотрим, что есть в таблице sales
 > 
 >
 > ```sql
@@ -159,5 +161,18 @@ ALTER FUNCTION pract_functions.sales_insert_update_delete_tf()
 >
 > Действительно уменьшилась на 1
 
-
+##### Проверим DELETE:
+> ```sql
+> delete from pract_functions.sales
+> where sales_id = 20
+> ```
+> Сумма по спичкам должна уменьшится на 1.5
+> ```sql
+> SELECT * FROM pract_functions.good_sum_mart
+> ```
+> Результат:
+>
+> <image src="images/delete.png" alt="delete">
+>
+> Действительно уменьшилась на 1.5
 ### Задание со звездочкой*. Чем такая схема (витрина+триггер) предпочтительнее отчета, создаваемого "по требованию" (кроме производительности)? Подсказка: В реальной жизни возможны изменения цен.
