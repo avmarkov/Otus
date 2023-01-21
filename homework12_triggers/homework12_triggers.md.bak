@@ -3,6 +3,7 @@
 ### Скрипт и развернутое описание задачи – в ЛК (файл hw_triggers.sql) или по ссылке: https://disk.yandex.ru/d/l70AvknAepIJXQ. В БД создана структура, описывающая товары (таблица goods) и продажи (таблица sales). Есть запрос для генерации отчета – сумма продаж по каждому товару. БД была денормализована, создана таблица (витрина), структура которой повторяет структуру отчета.
 
 ### Создать триггер на таблице продаж, для поддержки данных в витрине в актуальном состоянии (вычисляющий при каждой продаже сумму и записывающий её в витрину). Подсказка: не забыть, что кроме INSERT есть еще UPDATE и DELETE
+Триггерная функция будет иметь следующий вид:
 ```sql
 CREATE OR REPLACE FUNCTION pract_functions.sales_insert_update_delete_tf()
     RETURNS trigger
@@ -24,7 +25,7 @@ BEGIN
 	WHERE (NEW.good_id = g.goods_id and TG_OP <> 'DELETE') or
 	      (OLD.good_id = g.goods_id and TG_OP = 'DELETE');
 	
-    raise info 'goodprice, % ', goodprice;
+	raise info 'goodprice, % ', goodprice;
 	raise info 'goodname, % ', goodname;
 	raise info 'goodssum, % ', goodssum;
 	
