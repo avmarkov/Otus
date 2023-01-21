@@ -94,6 +94,47 @@ ALTER FUNCTION pract_functions.sales_insert_update_delete_tf()
     OWNER TO postgres;
 ```
 
+> Сам триггер:
 
+> ```sql
+> CREATE TRIGGER tr_sales
+> BEFORE INSERT OR DELETE OR UPDATE 
+> ON pract_functions.sales
+> FOR EACH ROW
+> EXECUTE FUNCTION pract_functions.sales_insert_update_delete_tf();
+> ```
+### Демонстрация работы триггера
+> Сначала заполним витрину 
+
+> ```sql
+> INSERT INTO pract_functions.good_sum_mart (good_name, sum_sale)
+> (
+> 	SELECT g.good_name, sum(g.good_price * s.sales_qty)
+>  	FROM pract_functions.goods g, pract_functions.sales s
+> 	WHERE g.goods_id=s.good_id
+> 	GROUP BY g.good_name
+> )
+> ```
+
+> Посмотрим данные в витрине
+> ```sql
+> SELECT * FROM pract_functions.good_sum_mart
+> ```
+>
+> <image src="images/first.png" alt="first">
+
+> Проверим INSERT:
+> ```sql
+> INSERT INTO pract_functions.sales (good_id, sales_qty) VALUES (1, 5)
+> ```
+> Сумма по спичкам должна увеличится на 2.5
+> ```sql
+> SELECT * FROM pract_functions.good_sum_mart
+> ```
+> Результат:
+>
+> <image src="images/insert.png" alt="insert">
+>
+> Действительно увеличились на 2.5
 
 ### Задание со звездочкой*. Чем такая схема (витрина+триггер) предпочтительнее отчета, создаваемого "по требованию" (кроме производительности)? Подсказка: В реальной жизни возможны изменения цен.
