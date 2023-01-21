@@ -24,7 +24,7 @@ BEGIN
 	WHERE (NEW.good_id = g.goods_id and TG_OP <> 'DELETE') or
 	      (OLD.good_id = g.goods_id and TG_OP = 'DELETE');
 	
-    raise info 'goodprice, % ', goodprice;
+	raise info 'goodprice, % ', goodprice;
 	raise info 'goodname, % ', goodname;
 	raise info 'goodssum, % ', goodssum;
 	
