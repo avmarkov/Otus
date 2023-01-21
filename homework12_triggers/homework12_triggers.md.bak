@@ -105,7 +105,7 @@ ALTER FUNCTION pract_functions.sales_insert_update_delete_tf()
 > ```
 ### Демонстрация работы триггера
 > Сначала заполним витрину 
-
+>
 > ```sql
 > INSERT INTO pract_functions.good_sum_mart (good_name, sum_sale)
 > (
@@ -115,13 +115,14 @@ ALTER FUNCTION pract_functions.sales_insert_update_delete_tf()
 > 	GROUP BY g.good_name
 > )
 > ```
-
+>
 > Посмотрим данные в витрине
 > ```sql
 > SELECT * FROM pract_functions.good_sum_mart
 > ```
 >
 > <image src="images/first.png" alt="first">
+
 
 > Проверим INSERT:
 > ```sql
@@ -133,8 +134,30 @@ ALTER FUNCTION pract_functions.sales_insert_update_delete_tf()
 > ```
 > Результат:
 >
-> <image src="images/first.png" alt="first">
+> <image src="images/insert.png" alt="insert">
 >
 > Действительно увеличились на 2.5
+
+> Проверим UPDATE. Сначала посмотрим, что есть в таблице sales
+> 
+>
+> ```sql
+> SELECT * FROM pract_functions.sales
+> ORDER BY sales_id ASC
+> ```
+>
+> <image src="images/insert.png" alt="insert">
+>
+> Обновим запись с sales_id = 20
+> ```sql
+> update pract_functions.sales SET sales_qty = 3
+> where sales_id = 20
+> ```
+> Сумма по спичкам должна уменьшится на 1
+>
+> <image src="images/insert.png" alt="insert">
+>
+> Действительно уменьшилась на 1
+
 
 ### Задание со звездочкой*. Чем такая схема (витрина+триггер) предпочтительнее отчета, создаваемого "по требованию" (кроме производительности)? Подсказка: В реальной жизни возможны изменения цен.
