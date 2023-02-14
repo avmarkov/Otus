@@ -23,6 +23,6 @@
 
 <image src="images/tables.png" alt="tables">
 
-По следующей ссылке представлена часть скрипт создания анологичной схемы данных в PostgreSQL. 
-[Скрипт] (DbCreateScript.md)
+По следующей ссылке представлена часть скрипт создания анологичной схемы данных в PostgreSQL.
+[Скрипт создания схемы данных в PostgreSQL](DbCreateScript.md)
 
