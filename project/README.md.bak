@@ -17,12 +17,3 @@
 ### Схема данных
 
 <image src="images/dbshema.png" alt="dbshema">
-
-### Миграция схемы БД
-В БД MS SQL имеется 125 таблиц, которые необходимо мигрировать.
-
-<image src="images/tables.png" alt="tables">
-
-По следующей ссылке представлена часть скрипт создания анологичной схемы данных в PostgreSQL. 
-[Скрипт] (DbCreateScript.md)
-
