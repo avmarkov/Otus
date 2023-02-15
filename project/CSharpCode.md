@@ -74,7 +74,7 @@ while (true)
 
 
 	PrgrAndCaptionSet(progress, prbarpercent.ToString(), "Таблица: [" + tablename.Name + "], мигрировано строк: " +
-														  modelres.InsertedRow.ToString() + " из " + rowcount.ToString());
+	                                                      modelres.InsertedRow.ToString() + " из " + rowcount.ToString());
 
 	ind++;
 	
@@ -116,7 +116,7 @@ internal static Boolean GetQueryByList(Int32 ind, CTableName tablename, Int64 mi
 		else
 		{
 			selquery = "SELECT " + fields +
-		               " FROM " +
+			           " FROM " +
 			           " (SELECT " + fields + ", ROW_NUMBER() OVER(ORDER BY " + firstField + ") as row_number " +
 			           " FROM " + tablename.Name + ") SEL" +
 			           " WHERE SEL.row_number BETWEEN " + (TopSel * (ind - 1) + 1).ToString() + " and " + (TopSel * ind).ToString();
