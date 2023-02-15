@@ -8,8 +8,8 @@ internal async Task<MSRes> GetFieldNameAndTypeByTable(CTableName tablename, List
 	msres.ErrmMess = "";
 
 	using SqlCommand command = new SqlCommand(@"SELECT COLUMN_NAME, DATA_TYPE 
-										  FROM INFORMATION_SCHEMA.COLUMNS
-										  WHERE TABLE_NAME = '" + tablename.Name + "'", conn);
+	                                            FROM INFORMATION_SCHEMA.COLUMNS
+	                                            WHERE TABLE_NAME = '" + tablename.Name + "'", conn);
 	{
 		SqlDataReader reader = await command.ExecuteReaderAsync();
 
