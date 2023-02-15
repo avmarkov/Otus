@@ -24,10 +24,11 @@ return
 SELECT AVGFullness 
 FROM (
 		SELECT  
-		 AVG( CASE 
-		            WHEN u.Units_ID IS NOT NULL AND UnitSWithPercent.Units_ID IS NULL THEN  0
+		 AVG( 
+				CASE 
+					WHEN u.Units_ID IS NOT NULL AND UnitSWithPercent.Units_ID IS NULL THEN  0
 					WHEN u.Units_ID IS NOT NULL AND UnitSWithPercent.Units_ID IS NOT NULL THEN  UnitSWithPercent.Date1PercentGood
-			  END) AS AVGFullness
+				END) AS AVGFullness
 
 		FROM TestCTE T 
 
@@ -36,20 +37,20 @@ FROM (
 		LEFT JOIN
 		(SELECT Units_ID, MIN(Date1) AS Date1, ROUND(CAST(COUNT(Date1) AS real)*100/(DATEDIFF(day, @Date1, @Date2)+1), 2) AS Date1PercentGood
 		 FROM
-		       (SELECT DISTINCT U.Units_ID, DR1.DataRecord_Date AS Date1
-			    FROM Units U
-				     LEFT JOIN DataRecord DR1 ON (DR1.DataRecord_Units_ID = U.Units_ID AND
-					                              DR1.DataRecord_GuideDataType_Code = 3 AND
-												  U.Units_GuideEnergy_Code = 0)
-				WHERE  DR1.DataRecord_Date BETWEEN @Date1  AND @Date2						
-				) AS tt		
+			(SELECT DISTINCT U.Units_ID, DR1.DataRecord_Date AS Date1
+			 FROM Units U
+			 LEFT JOIN DataRecord DR1 ON (DR1.DataRecord_Units_ID = U.Units_ID AND
+										  DR1.DataRecord_GuideDataType_Code = 3 AND
+										  U.Units_GuideEnergy_Code = 0)
+			 WHERE  DR1.DataRecord_Date BETWEEN @Date1  AND @Date2						
+			) AS tt		
 		 GROUP BY  Units_ID
 		) UnitSWithPercent ON UnitSWithPercent.Units_ID = U.Units_ID
 	) rtt
 )
 ```
 
-### Аналогичная функция  нахождения полноты собранных данных по группе в PostgreSQL:  
+### Аналогичная функция  нахождения полноты собранных данных по группе приборов в PostgreSQL:  
 ```sql
 
 CREATE OR REPLACE FUNCTION public.getavgfullnessbygroup(
@@ -88,10 +89,10 @@ FROM (
 
 		SELECT  
 		AVG( 
-			  CASE 
-				 WHEN (u.Units_ID IS NOT NULL) AND (UnitSWithPercent.Units_ID IS NULL)  THEN  0
-				 WHEN (u.Units_ID IS NOT NULL) AND (UnitSWithPercent.Units_ID IS NOT NULL)  THEN  UnitSWithPercent.Date1PercentGood
-			  END
+				CASE 
+					WHEN (u.Units_ID IS NOT NULL) AND (UnitSWithPercent.Units_ID IS NULL)  THEN  0
+					WHEN (u.Units_ID IS NOT NULL) AND (UnitSWithPercent.Units_ID IS NOT NULL)  THEN  UnitSWithPercent.Date1PercentGood
+				END
 		    ) AS avgfullness
 
 		FROM TestCTE T 
