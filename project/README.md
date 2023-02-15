@@ -56,11 +56,10 @@
 
 #### Отличия синтаксиса при миграции храимых процедур и функций MS SQL и PostgreSQL
 
-```sql
+
 | **MS SQL**                                | **PostgreSQL**                                                     |
 | :---------------------------------------- | :------------------------------------------------------------------|
-|  DATEDIFF(day, @Date1, @Date2)            |  DATE_PART('day', date_2::timestamp - date_1::timestamp)           |
+| ```sql DATEDIFF(day, @Date1, @Date2) ```  |  DATE_PART('day', date_2::timestamp - date_1::timestamp)           |
 | $100                                      | $100                                                               |
 | $10                                       | $10                                                                |
 | $1                                        | $1                                                                 |
-```
