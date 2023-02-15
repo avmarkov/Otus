@@ -8,49 +8,46 @@ returns table
 as
 return
 (
-          WITH TestCTE(Groups_ID, Groups_Name, Groups_Parent_ID)
-          AS
-          (     
-          -- Находим якорь рекурсии     
-          SELECT Groups_ID, Groups_Name, Groups_Parent_ID
-          FROM dbo.Groups WHERE Groups_ID = @Groups_ID
-          UNION ALL
-          --Делаем объединение с TestCTE
-          SELECT t1.Groups_ID, t1.Groups_Name, t1.Groups_Parent_ID 
-          FROM dbo.Groups t1 
-          JOIN TestCTE t2 ON t1.Groups_Parent_ID=t2.Groups_ID
-          )
+	WITH TestCTE(Groups_ID, Groups_Name, Groups_Parent_ID)
+	AS
+	(	
+		-- Находим якорь рекурсии	
+		SELECT Groups_ID, Groups_Name, Groups_Parent_ID
+		FROM dbo.Groups WHERE Groups_ID = @Groups_ID
+		UNION ALL
+		--Делаем объединение с TestCTE
+		SELECT t1.Groups_ID, t1.Groups_Name, t1.Groups_Parent_ID 
+		FROM dbo.Groups t1 
+		JOIN TestCTE t2 ON t1.Groups_Parent_ID=t2.Groups_ID
+	)
 
-SELECT AVGFullness 
-FROM (
-          SELECT  
-           AVG( 
-                    CASE 
-                         WHEN u.Units_ID IS NOT NULL AND UnitSWithPercent.Units_ID IS NULL THEN  0
-                         WHEN u.Units_ID IS NOT NULL AND UnitSWithPercent.Units_ID IS NOT NULL THEN  UnitSWithPercent.Date1PercentGood
-                    END) AS AVGFullness
+	SELECT AVGFullness 
+	FROM (
+			SELECT  
+			AVG( CASE 
+					 WHEN u.Units_ID IS NOT NULL AND UnitSWithPercent.Units_ID IS NULL THEN  0
+					 WHEN u.Units_ID IS NOT NULL AND UnitSWithPercent.Units_ID IS NOT NULL THEN  UnitSWithPercent.Date1PercentGood
+				 END) AS AVGFullness
 
-          FROM TestCTE T 
+			FROM TestCTE T 
 
-          INNER JOIN GroupsDevices GD ON T.Groups_ID = GD.GroupsDevices_Groups_ID
-          LEFT JOIN Units U ON U.Units_Devices_ID = GD.GroupsDevices_Devices_ID AND U.Units_GuideEnergy_Code = 0
-          LEFT JOIN
-          (SELECT Units_ID, MIN(Date1) AS Date1, ROUND(
-		                                                   CAST(COUNT(Date1) AS real)*100/
-		                                                   (DATEDIFF(day, @Date1, @Date2)+1), 
-													   2) AS Date1PercentGood
-           FROM
-               (SELECT DISTINCT U.Units_ID, DR1.DataRecord_Date AS Date1
-                FROM Units U
-                LEFT JOIN DataRecord DR1 ON (DR1.DataRecord_Units_ID = U.Units_ID AND
-                                             DR1.DataRecord_GuideDataType_Code = 3 AND
-                                             U.Units_GuideEnergy_Code = 0)
-                WHERE  DR1.DataRecord_Date BETWEEN @Date1  AND @Date2                              
-               ) AS tt          
-           GROUP BY  Units_ID
-          ) UnitSWithPercent ON UnitSWithPercent.Units_ID = U.Units_ID
-     ) rtt
-)
+			INNER JOIN GroupsDevices GD ON T.Groups_ID = GD.GroupsDevices_Groups_ID
+			LEFT JOIN Units U ON U.Units_Devices_ID = GD.GroupsDevices_Devices_ID AND U.Units_GuideEnergy_Code = 0
+			LEFT JOIN
+						(SELECT Units_ID, MIN(Date1) AS Date1, ROUND(CAST(COUNT(Date1) AS real)*100/(DATEDIFF(day, @Date1, @Date2)+1), 2) AS Date1PercentGood
+						 FROM
+						(
+							SELECT DISTINCT U.Units_ID, DR1.DataRecord_Date AS Date1
+							FROM Units U
+								LEFT JOIN DataRecord DR1 ON	(DR1.DataRecord_Units_ID = U.Units_ID AND
+															 DR1.DataRecord_GuideDataType_Code =3 AND
+															 U.Units_GuideEnergy_Code = 0)
+							WHERE  DR1.DataRecord_Date BETWEEN @Date1  AND @Date2				
+						) AS tt		
+			GROUP BY  Units_ID
+			) UnitSWithPercent ON UnitSWithPercent.Units_ID = U.Units_ID
+	) rtt
+)	
 ```
 
 ### Аналогичная функция  нахождения полноты собранных данных по группе приборов в PostgreSQL:  
