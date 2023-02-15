@@ -109,18 +109,18 @@ internal static Boolean GetQueryByList(Int32 ind, CTableName tablename, Int64 mi
 				maxrowcalc = maxrow;
 			}
 			selquery = "SELECT " + fields +
-					   " FROM " + tablename.Name +
-					   " WHERE " + tablename.KeyField + " BETWEEN " + (minrow + TopSel * (ind - 1)).ToString() + " AND " +
+			           " FROM " + tablename.Name +
+		               " WHERE " + tablename.KeyField + " BETWEEN " + (minrow + TopSel * (ind - 1)).ToString() + " AND " +
 																	  maxrowcalc;
 
 		}
 		else
 		{
 			selquery = "SELECT " + fields +
-									  " FROM " +
-									  " (SELECT " + fields + ", ROW_NUMBER() OVER(ORDER BY " + firstField + ") as row_number " +
-									  " FROM " + tablename.Name + ") SEL" +
-									  " WHERE SEL.row_number BETWEEN " + (TopSel * (ind - 1) + 1).ToString() + " and " + (TopSel * ind).ToString();
+		               " FROM " +
+			           " (SELECT " + fields + ", ROW_NUMBER() OVER(ORDER BY " + firstField + ") as row_number " +
+			           " FROM " + tablename.Name + ") SEL" +
+			           " WHERE SEL.row_number BETWEEN " + (TopSel * (ind - 1) + 1).ToString() + " and " + (TopSel * ind).ToString();
 		}
 
 	}
@@ -129,7 +129,7 @@ internal static Boolean GetQueryByList(Int32 ind, CTableName tablename, Int64 mi
 }
 ```
 
-### Выполняем сформированный SELECT? записываем результат в .CSV-файл и с помощью команды COPY записываем данные в PostgreSQL
+### Выполняем сформированный SELECT, записываем результат в .CSV-файл и с помощью команды COPY записываем данные в PostgreSQL
 ```cs
 internal static async Task<ModelRes> SaveToCSVandCopy(CTableName tablename, Int64 rowcount, List<CFieldNameAndType> fieldNameAndTypeList, string selquery)
 {
@@ -236,9 +236,9 @@ internal static async Task<ModelRes> SaveToCSVandCopy(CTableName tablename, Int6
 					return modelres;
 				}
 			}
-			var execres = await pg.ExecSqlQuery(" copy " + tablename.Name +
-											   @" FROM '" + csvfileName + "'" +
-											   @" DELIMITER ',' CSV QUOTE '''' NULL AS 'Null' header ;", pg.conn, null);
+			var execres = await pg.ExecSqlQuery(" COPY " + tablename.Name +
+			                                   @" FROM '" + csvfileName + "'" +
+			                                   @" DELIMITER ',' CSV QUOTE '''' NULL AS 'Null' header ;", pg.conn, null);
 
 			if (!execres.ResBool)
 			{
