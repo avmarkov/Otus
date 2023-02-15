@@ -226,16 +226,7 @@ internal static async Task<ModelRes> SaveToCSVandCopy(CTableName tablename, Int6
 
 
 			sw.Close();
-			if (tablename.ReplacedFiled)
-			{
-				var delres = await pg.ExecSqlQuery(" delete from " + tablename.Name, pg.conn, null);
-				if (!delres.ResBool)
-				{
-					modelres.Code = (Int32)ERR.PG_INSERT;
-					modelres.Mess = delres.ErrmMess;
-					return modelres;
-				}
-			}
+			
 			// запись csv-файла в PostgreSQL 
 			var execres = await pg.ExecSqlQuery(" COPY " + tablename.Name +
 			                                   @" FROM '" + csvfileName + "'" +
