@@ -110,8 +110,7 @@ internal static Boolean GetQueryByList(Int32 ind, CTableName tablename, Int64 mi
 			}
 			selquery = "SELECT " + fields +
 			           " FROM " + tablename.Name +
-		               " WHERE " + tablename.KeyField + " BETWEEN " + (minrow + TopSel * (ind - 1)).ToString() + " AND " +
-																	  maxrowcalc;
+			           " WHERE " + tablename.KeyField + " BETWEEN " + (minrow + TopSel * (ind - 1)).ToString() + " AND " + maxrowcalc;
 
 		}
 		else
