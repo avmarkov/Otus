@@ -46,7 +46,7 @@ internal async Task<MSRes> GetFieldNameAndTypeByTable(CTableName tablename, List
 }
 ```
 
-### Миграция отдной таблицы   
+### Миграция одной таблицы   
 ```cs
 while (true)
 {
@@ -141,6 +141,7 @@ internal static async Task<ModelRes> SaveToCSVandCopy(CTableName tablename, Int6
 	{
 		try
 		{
+		    // Выполняем SELECT
 			reader = await selcommand.ExecuteReaderAsync();
 		}
 		catch (Exception e)
@@ -155,7 +156,8 @@ internal static async Task<ModelRes> SaveToCSVandCopy(CTableName tablename, Int6
 		{
 			File.Delete(csvfileName);
 		}
-
+		
+		// Записываем результат SELECT в csv-файл
 		using StreamWriter sw = new StreamWriter(csvfileName, false);
 		{
 			for (int i = 0; i < reader.FieldCount; i++)
@@ -179,8 +181,7 @@ internal static async Task<ModelRes> SaveToCSVandCopy(CTableName tablename, Int6
 					{
 
 						if (!Convert.IsDBNull(reader.GetSqlValue(i)))
-						{
-							string value = reader.GetValue(i).ToString();
+						{							
 							object obj = null;
 
 							FieldTypePars(i, reader, fieldNameAndTypeList[i], ref obj);
@@ -235,6 +236,7 @@ internal static async Task<ModelRes> SaveToCSVandCopy(CTableName tablename, Int6
 					return modelres;
 				}
 			}
+			// запись csv-файла в PostgreSQL 
 			var execres = await pg.ExecSqlQuery(" COPY " + tablename.Name +
 			                                   @" FROM '" + csvfileName + "'" +
 			                                   @" DELIMITER ',' CSV QUOTE '''' NULL AS 'Null' header ;", pg.conn, null);
