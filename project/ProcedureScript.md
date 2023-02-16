@@ -106,9 +106,9 @@ FROM (
 
 		(SELECT Units_ID, MIN(Date1) AS Date1, 
 		        ROUND(CAST(
-							CAST(COUNT(date1) AS double precision)*100/(DATE_PART('day', date_2::timestamp - date_1::timestamp) + 1)
-						    as numeric
-					      ), 2  
+		                    CAST(COUNT(date1) AS double precision)*100/(DATE_PART('day', date_2::timestamp - date_1::timestamp) + 1)
+		                    as numeric
+		                   ), 2  
 					 )  AS Date1PercentGood
 		 FROM
 			 (
