@@ -64,7 +64,7 @@
 | ``` CHARINDEX(';',@STR) ```               | ``` strpos(STR, ';') ```                                           |
 | ``` LEN(@STR) ```                         | ``` LENGTH(STR) ```                                                |
 | ``` SELECT DATEADD(day, 1, GETDATE()); ```| ``` SELECT CURRENT_DATE + INTERVAL '1 day'; ```                    |
-| Конкатенация ``` + ```                    | Конкатенация ``` || ```                                            |
+| Конкатенация:  "+"                        | Конкатенация:  "||"                                                |
 
 ### Результат
 
