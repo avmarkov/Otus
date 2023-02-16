@@ -53,6 +53,16 @@ return
 )	
 ```
 
+#### Результат
+```sql
+SELECT * FROM [dbo].[GetAVGFullnessByGroup] (
+   2563,
+   '01.12.2021',
+   '31.12.2021')
+```
+
+<image src="images/resfun1_ms.png" alt="resfun1_ms">
+
 #### Аналогичная функция расчета полноты собранных данных по группе приборов в PostgreSQL:  
 ```sql
 
@@ -109,7 +119,7 @@ FROM (
 		                    CAST(COUNT(date1) AS double precision)*100/(DATE_PART('day', date_2::timestamp - date_1::timestamp) + 1)
 		                    as numeric
 		                   ), 2  
-					 )  AS Date1PercentGood
+		             )  AS Date1PercentGood
 		 FROM
 			 (
 			    SELECT DISTINCT U.Units_ID, DR1.DataRecord_Date AS Date1
@@ -128,6 +138,16 @@ FROM (
 END; 
 
 $BODY$;
-
-
 ```
+
+#### Результат
+```sql
+SELECT public.getavgfullnessbygroup(
+	2563, 
+	'01.12.2021',
+    '31.12.2021'
+)
+```
+
+<image src="images/resfun1_pg.png" alt="resfun1_pg">
+
