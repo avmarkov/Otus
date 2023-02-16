@@ -42,9 +42,9 @@ return
 						(
 							SELECT DISTINCT U.Units_ID, DR1.DataRecord_Date AS Date1
 							FROM Units U
-							LEFT JOIN DataRecord DR1 ON (DR1.DataRecord_Units_ID = U.Units_ID AND
-											             DR1.DataRecord_GuideDataType_Code = 3 AND
-								                         U.Units_GuideEnergy_Code = 0)
+							LEFT JOIN DataRecord DR1 ON (DR1.DataRecord_Units_ID = U.Units_ID AND														 
+														 DR1.DataRecord_GuideDataType_Code = 3 AND
+														 U.Units_GuideEnergy_Code = 0)
 							WHERE  DR1.DataRecord_Date BETWEEN @Date1 AND @Date2				
 						) AS tt		
 			GROUP BY  Units_ID
@@ -113,8 +113,8 @@ SELECT cast(rtt.avgfullness as double precision)  FROM (
 			 (
 			    SELECT DISTINCT U.Units_ID, DR1.DataRecord_Date AS Date1
 				FROM Units U
-				LEFT JOIN DataRecord DR1 ON	(DR1.DataRecord_Units_ID = U.Units_ID) AND
-											(DR1.DataRecord_GuideDataType_Code = 3) AND
+				LEFT JOIN DataRecord DR1 ON (DR1.DataRecord_Units_ID = U.Units_ID) AND
+				                            (DR1.DataRecord_GuideDataType_Code = 3) AND
 											(U.Units_GuideEnergy_Code = 0)
 				WHERE  DR1.DataRecord_Date BETWEEN date_1  AND date_2						
 			  ) AS tt
