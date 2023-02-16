@@ -56,11 +56,10 @@
 
 #### Отличия синтаксиса при миграции храимых процедур и функций MS SQL и PostgreSQL
 
-```sql
 | **MS SQL**                                | **PostgreSQL**                                                     |
 | :---------------------------------------- | :------------------------------------------------------------------|
-|  DATEDIFF(day, @Date1, @Date2)            |  DATE_PART('day', date_2::timestamp - date_1::timestamp)           |
-| $100                                      | $100                                                               |
-| $10                                       | $10                                                                |
-| $1                                        | $1                                                                 |
-```
+| ``` DATEDIFF(day, @Date1, @Date2) ```     | ``` DATE_PART('day', date_2::timestamp - date_1::timestamp) ```    |
+| ``` CHARINDEX(';',@STR) ```               | ``` strpos(STR, ';') ```                                           |
+| ``` LEN(@STR) ```                         | ``` LENGTH(STR) ```                                                |
+| ``` SELECT DATEADD(day, 1, GETDATE()); ```| ``` SELECT CURRENT_DATE + INTERVAL '1 day'; ```                    |
+| Конкатенация ``` + ```                    | Конкатенация ``` || ```                                            |

@@ -151,3 +151,92 @@ SELECT public.getavgfullnessbygroup(
 
 <image src="images/resfun1_pg.png" alt="resfun1_pg">
 
+### 1. Функция парсинга строки
+
+Входная трока имеет следующий вид:
+0=43=1;1=11111=1;2=44454=1;3=102654834=1;4=402222=1;5=0=1;6=0=1;7=1=1;8=7084=1;9=7084=1;10=1760113=1;11=0=1;12=1=1;13=4=1;14=0=1;15=0=1;16=3415=1;18=16=1;
+
+#### Функция парсинга строкив MS SQL: 
+
+```sql
+
+ALTER FUNCTION [dbo].[Web_C2_RA4_GetRole_f]
+(
+	@STR VARCHAR(MAX)
+)
+RETURNS int
+AS
+BEGIN
+	DECLARE @STR_ID VARCHAR(max), @STR_VAL VARCHAR(max) 
+    DECLARE @TEMP_TAB table(ID int, VAL NVARCHAR(max))
+    
+    WHILE @STR <>''BEGIN
+					    SET @STR_VAL = LEFT(@STR,CHARINDEX(';',@STR)-1)
+					    SET @STR_ID = LEFT(@STR_VAL,CHARINDEX('=',@STR_VAL)-1)
+					    SET @STR_VAL = RIGHT(@STR_VAL,LEN(@STR_VAL)-CHARINDEX('=',@STR_VAL))
+					    SET @STR_VAL = LEFT(@STR_VAL,CHARINDEX('=',@STR_VAL)-1)
+					    INSERT INTO @TEMP_TAB SELECT @STR_ID, @STR_VAL           
+					    SET @STR = RIGHT(@STR,LEN(@STR)-CHARINDEX(';',@STR))
+                    END
+	RETURN (Select VAL From @TEMP_TAB Where ID = 18)
+
+END
+
+```
+
+#### Результат:
+```sql
+SELECT * FROM [dbo].[Web_C2_RA4_GetDetailParams_f] (901)
+```
+
+<image src="images/resfun2_ms.png" alt="resfun2_ms">
+
+#### Функция парсинга строкив PostgreSQL: 
+
+```sql
+
+CREATE OR REPLACE FUNCTION public.web_c2_ra4_getdetailparams_f(
+	deviceid integer)
+    RETURNS TABLE(id integer, val character varying) 
+    LANGUAGE 'plpgsql'
+    COST 100
+    VOLATILE PARALLEL UNSAFE
+    ROWS 1000
+
+AS $BODY$
+
+DECLARE
+STR character varying;
+STR_ID character varying;
+STR_VAL character varying; 
+BEGIN
+
+    SELECT Devices.devices_connectioninfo INTO STR
+	FROM public.Devices
+	WHERE Devices.devices_id = deviceid;
+	
+	WHILE STR <>'' 
+	LOOP	
+		STR_VAL = LEFT(STR, strpos(STR, ';')-1);
+		STR_ID = LEFT(STR_VAL, strpos(STR_VAL, '=') -1);
+		STR_VAL = RIGHT(STR_VAL, LENGTH(STR_VAL) - strpos(STR_VAL, '='));
+		STR_VAL = LEFT(STR_VAL, strpos(STR_VAL, '=')-1);
+		
+		
+		ID := cast(STR_ID as integer);
+		VAL := STR_VAL;		
+		STR = RIGHT(STR, LENGTH(STR) - strpos(STR, ';'));
+		RETURN next; 		
+    END LOOP;	
+END;
+
+$BODY$;
+
+```
+
+#### Результат:
+```sql
+SELECT * from public.web_c2_ra4_getdetailparams_f(901)
+```
+
+<image src="images/resfun2_pg.png" alt="resfun2_pg">
